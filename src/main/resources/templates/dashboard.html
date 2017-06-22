@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="dashboard-fragments :: head"></head>
+<body>
+
+<div class="wrapper">
+    <div th:replace="dashboard-fragments :: sidebar"></div>
+
+    <div class="main-panel">
+        <nav th:replace="dashboard-fragments :: nav"></nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <p>Welcome!</p>
+                </div>
+            </div>
+        </div>
+
+
+        <footer th:replace="dashboard-fragments :: footer"></footer>
+
+    </div>
+</div>
+
+
+</body>
+
+</html>

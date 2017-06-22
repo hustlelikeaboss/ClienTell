@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="page-fragments :: head"></head>
+<body>
+
+<div class="wrapper">
+
+    <nav th:replace="page-fragments :: nav"></nav>
+
+    <div class="register-background">
+        <div class="filter-black"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
+                    <div class="register-card">
+                        <h3 class="title">Meet Your Customers</h3>
+
+                        <form class="form-group" th:object="${user}" method="post" action="/user/register">
+
+                            <label th:for="*{email}"></label>
+                            <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
+                            <span th:errors="*{email}"></span>
+
+                            <label th:for="*{password}"></label>
+                            <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
+                            <span th:errors="*{password}"></span>
+
+                            <label th:for="*{verify}"></label>
+                            <input type="password" th:field="*{verify}" placeholder="Verify Password" class="form-control" />
+
+                            <br/>
+                            <input type="submit" value="Register" class="form-control btn btn-simple" />
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
+            <footer th:replace="page-fragments :: footer"></footer>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
