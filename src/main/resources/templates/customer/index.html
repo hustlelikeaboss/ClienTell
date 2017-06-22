@@ -13,38 +13,57 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Existing Customers</h4>
+                                <p class="category">Click on each customer to view and update full profile.</p>
+                            </div>
 
-                    <div th:if="${customers} and ${customers.size()}" class="content table-responsive table-full-width">
-                        <table class="table table-striped">
-                            <thead>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                            </thead>
-                                <tbody>
-                                <tr th:each="customer : ${customers}">
-                                    <td th:text="${customer.fName}"></td>
-                                    <td th:text="${customer.lName}"></td>
-                                    <td th:text="${customer.email}"></td>
-                                    <td th:text="${customer.phoneNumber}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <div th:if="${customers} and ${customers.size()}" class="content table-responsive table-full-width">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                    </thead>
+                                        <tbody>
+                                        <tr th:each="customer : ${customers}">
+                                            <td th:text="${customer.fName}"></td>
+                                            <td th:text="${customer.lName}"></td>
+                                            <td th:text="${customer.email}"></td>
+                                            <td th:text="${customer.phoneNumber}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p th:unless="${customers} and ${customers.size()}">No Customers Yet.</p>
+
                     </div>
 
-                    <p th:unless="${customers} and ${customers.size()}">No Customers Yet.</p>
 
-                    <button><a th:href="@{/customer/add}">Add Customers</a></button>
 
+                </div><!--/ end col-md-12-->
+            </div><!--/ end row-->
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <!--Add Customers button-->
+                        <div class="text-center">
+                            <a th:href="@{/customer/add}" class="btn btn-info btn-fill btn-wd">Add Customers</a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-            </div>
 
-
-    </div>
+</div><!--/ end container-fluid-->
+</div><!--/ end content-->
         <footer th:replace="dashboard-fragments :: footer"></footer>
-</div>
-</div>
+</div><!--/ end main panel-->
+</div><!--/ end wrapper-->
 
 </body>
 

@@ -60,7 +60,7 @@ public class UserController {
 // edit user profile
 @RequestMapping(value="/edit-profile/{userId}", method = RequestMethod.GET)
 public String login(Model model, @PathVariable(value="userId") int userId) {
-    model.addAttribute("title", "Edit Profile");
+    model.addAttribute("title", "User Profile");
     model.addAttribute("user", userDao.findOne(userId));
 
     return "user/edit-profile";

@@ -14,36 +14,46 @@
             <div class="container-fluid">
                 <div class="row">
 
-                    <form class="form-group" th:object="${customer}" method="post" action="/customer/add">
+                    <div class="col-md-3"></div>
 
-                        <label th:for="*{fName}"></label>
-                        <input type="text" th:field="*{fName}" placeholder="first name" class="form-control" />
-                        <span th:errors="*{fName}"></span>
+                    <div class="col-md-6">
 
-                        <label th:for="*{lName}"></label>
-                        <input type="text" th:field="*{lName}" placeholder="last name" class="form-control" />
-                        <span th:errors="*{lName}"></span>
+                        <form class="form-group" th:object="${customer}" method="post" action="/customer/add">
 
-                        <label th:for="*{email}"></label>
-                        <input type="email" th:field="*{email}" placeholder="email" class="form-control" />
-                        <span th:errors="*{email}"></span>
+                            <label th:for="*{fName}"></label>
+                            <input type="text" th:field="*{fName}" placeholder="first name" class="form-control" />
+                            <span th:errors="*{fName}"></span>
 
-                        <label th:for="*{phoneNumber}"></label>
-                        <input type="text" th:field="*{phoneNumber}" placeholder="phone number ((xxx)xxx-xxxx)" class="form-control" />
-                        <span th:errors="*{phoneNumber}"></span>
+                            <label th:for="*{lName}"></label>
+                            <input type="text" th:field="*{lName}" placeholder="last name" class="form-control" />
+                            <span th:errors="*{lName}"></span>
 
-                        <input type="submit" value="Add Customer" class="form-control btn btn-simple" />
+                            <label th:for="*{email}"></label>
+                            <input type="email" th:field="*{email}" placeholder="email" class="form-control" />
+                            <span th:errors="*{email}"></span>
 
-                    </form>
+                            <label th:for="*{phoneNumber}"></label>
+                            <input type="text" th:field="*{phoneNumber}" placeholder="phone number (format: (xxx)xxx-xxxx)" class="form-control" />
+                            <span th:errors="*{phoneNumber}"></span>
 
-                </div>
-            </div>
-        </div>
+                            <br/>
 
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Add customer</button>
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </form>
+                    </div>
+
+                    <div class="col-md-3"></div>
+
+                </div><!--/ end row-->
+            </div><!--/ end container-fluid-->
+        </div><!--/ end content-->
         <footer th:replace="dashboard-fragments :: footer"></footer>
-
-    </div>
-</div>
+    </div><!--/ end main panel-->
+</div><!--/ end wrapper-->
 
 </body>
 

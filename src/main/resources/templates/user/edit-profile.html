@@ -16,14 +16,19 @@
                 <!--left column-->
                 <div class="col-lg-4 col-md-5">
                     <div class="card card-user">
+
                         <div class="image">
-                            <img src="assets/img/background.jpg" alt="..."/>
+                            <img th:src="@{/img/background.jpg}" alt="..."/>
                         </div>
+
                         <div class="content">
                             <div class="author">
                                 <img class="avatar border-white" th:src="@{/img/faces/face-2.jpg}" alt="..."/>
-                                <h4 class="title">Chet Faker<br />
-                                    <a href="#"><small>@chetfaker</small></a>
+                                <br/>
+
+                                <h4 class="title"><span th:text="${user.fName}">Chet Faker</span>
+                                    <span th:text="${user.lName}">Faker</span><br />
+                                    <a href="#"><small th:text="'@' + ${user.fName.toLowerCase()} + ${user.lName.toLowerCase()}">@chetfaker</small></a>
                                 </h4>
                             </div>
                             <p class="description text-center">
@@ -31,20 +36,7 @@
                                 No diggity <br/>
                                 I wanna bag it up"
                             </p>
-                        </div>
-                        <hr/>
-                        <div class="text-center">
-                            <div class="row">
-                                <div class="col-md-3 col-md-offset-1">
-                                    <h5>12<br /><small>Files</small></h5>
-                                </div>
-                                <div class="col-md-4">
-                                    <h5>2GB<br /><small>Used</small></h5>
-                                </div>
-                                <div class="col-md-3">
-                                    <h5>24,6$<br /><small>Spent</small></h5>
-                                </div>
-                            </div>
+                            <br/>
                         </div>
                     </div>
                 </div><!--/end left column-->
@@ -112,10 +104,11 @@
                     </div>
                 </div><!--/ end right column-->
 
-            <footer th:replace="dashboard-fragments :: footer"></footer>
+
 
 </div><!--/ end container-fluid-->
 </div><!--/ end content-->
+        <footer th:replace="dashboard-fragments :: footer"></footer>
 </div><!--/ end main panel-->
 </div><!--/ end wrapper-->
 

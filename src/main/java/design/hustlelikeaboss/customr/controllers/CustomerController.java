@@ -44,6 +44,7 @@ public class CustomerController {
     @RequestMapping(value="add", method = RequestMethod.POST)
     public String add(Model model, @ModelAttribute @Valid Customer customer, Errors errors) {
         if (errors.hasErrors()) {
+            model.addAttribute("title", "Add New Customers");
             return "customer/add";
         }
 

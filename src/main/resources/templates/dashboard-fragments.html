@@ -69,22 +69,22 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard.html">
+                    <a th:href="@{/dashboard}">
                         <i class="ti-pie-chart"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
                 <li>
-                    <a href="user.html">
+                    <a th:href="@{/user/edit-profile/}">
                         <i class="ti-user"></i>
                         <p>User Profile</p>
                     </a>
                 </li>
                 <li>
-                    <a href="table.html">
+                    <a th:href="@{/customer/}">
                         <i class="ti-view-list-alt"></i>
-                        <p>Table List</p>
+                        <p>Customers</p>
                     </a>
                 </li>
                 <li>
@@ -112,9 +112,9 @@
                     </a>
                 </li>
 
-            </ul>
+            </ul><!--/ end nav-->
         </div>
-    </div>
+    </div><!--/ end sidebar-->
 
     <div class="main-panel">
         <nav th:fragment="nav" class="navbar navbar-default">
@@ -173,24 +173,14 @@
 
         <footer th:fragment="footer" class="footer">
             <div class="container-fluid">
-                <nav class="pull-left">
-                    <ul>
-
-                        <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
                 <div class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.hustlelikeaboss.design">Hustle Like A Boss Design</a>
+                    &copy; <script>document.write(new Date().getFullYear())</script><a href="http://www.hustlelikeaboss.design"> Hustle Like A Boss Design</a>
                 </div>
             </div>
         </footer>
 
-    </div>
-</div>
+    </div><!--/ end main-panel-->
+</div><!--/ end wrapper-->
 
 
 </body>
