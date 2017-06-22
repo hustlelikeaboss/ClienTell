@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="dashboard-fragments :: head"></head>
+<body>
+
+<div class="wrapper">
+    <div th:replace="dashboard-fragments :: sidebar"></div>
+
+    <div class="main-panel">
+        <nav th:replace="dashboard-fragments :: nav"></nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div th:if="${customers} and ${customers.size()}" class="content table-responsive table-full-width">
+                        <table class="table table-striped">
+                            <thead>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                            </thead>
+                                <tbody>
+                                <tr th:each="customer : ${customers}">
+                                    <td th:text="${customer.fName}"></td>
+                                    <td th:text="${customer.lName}"></td>
+                                    <td th:text="${customer.email}"></td>
+                                    <td th:text="${customer.phoneNumber}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p th:unless="${customers} and ${customers.size()}">No Customers Yet.</p>
+
+                    <button><a th:href="@{/customer/add}">Add Customers</a></button>
+
+                </div>
+            </div>
+
+
+    </div>
+        <footer th:replace="dashboard-fragments :: footer"></footer>
+</div>
+</div>
+
+</body>
+
+</html>
