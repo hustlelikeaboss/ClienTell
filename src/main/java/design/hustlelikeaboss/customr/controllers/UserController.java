@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -58,5 +56,26 @@ public class UserController {
     }
 
 // user logout
+
+// edit user profile
+@RequestMapping(value="/edit-profile/{userId}", method = RequestMethod.GET)
+public String login(Model model, @PathVariable(value="userId") int userId) {
+    model.addAttribute("title", "Edit Profile");
+    model.addAttribute("user", userDao.findOne(userId));
+
+    return "user/edit-profile";
+}
+
+    @RequestMapping(value="edit-profile", method = RequestMethod.POST)
+    public String login(Model model, @ModelAttribute @Valid User user, Errors errors, @RequestParam("userId") int id) {
+        User usr = userDao.findOne(id);
+        usr.setfName(user.getfName());
+        usr.setlName(user.getlName());
+        usr.setCompany(user.getCompany());
+        usr.setWebsite(user.getWebsite());
+
+        userDao.save(usr);
+        return "user/edit-profile";
+    }
 
 }
