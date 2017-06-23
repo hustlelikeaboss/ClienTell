@@ -26,6 +26,17 @@ public class Customer {
     @Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")
     private String phoneNumber;
 
+    private String company;
+    private String website;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String Country;
+    private String zipCode;
+
+    // List<Project> projects;
+
+
 //  constructors
     public Customer(String fName, String lName, String email, String phoneNumber) {
         this.fName = fName;
@@ -81,5 +92,61 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 }

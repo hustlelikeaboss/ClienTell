@@ -26,8 +26,9 @@
                                 <img class="avatar border-white" th:src="@{/img/faces/face-2.jpg}" alt="..."/>
                                 <br/>
 
-                                <h4 class="title"><span th:text="${user.fName}">Chet Faker</span>
-                                    <span th:text="${user.lName}">Faker</span><br />
+                                <h4 class="title" th:if="${user.fName != null and user.lName != null}">
+                                    <span th:text="${user.fName}">Chet </span>
+                                    <span  th:text="${user.lName}">Faker</span><br />
                                     <a href="#"><small th:text="'@' + ${user.fName.toLowerCase()} + ${user.lName.toLowerCase()}">@chetfaker</small></a>
                                 </h4>
                             </div>
@@ -52,6 +53,7 @@
                                 <!--edit user profile form-->
                                 <form method="post" th:object="${user}" action="/user/edit-profile">
 
+                                    <!-- name -->
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -67,20 +69,31 @@
                                         </div>
                                     </div>
 
+                                    <!-- email, phone -->
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label th:for="*{email}">Email</label>
-                                                <input th:field="*{email}" type="text" class="form-control border-input" placeholder="Email" />
+                                                <input th:field="*{email}" type="email" class="form-control border-input" placeholder="Email" />
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label th:for="*{phoneNumber}">Phone Number</label>
+                                                <input th:field="*{phoneNumber}" type="tel" class="form-control border-input" placeholder="Phone Number" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- company name & website -->
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label th:for="*{company}">Company</label>
                                                 <input th:field="*{company}" type="text" class="form-control border-input" placeholder="Company" />
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label th:for="*{website}">Website</label>
                                                 <input th:field="*{website}" type="text" class="form-control border-input" placeholder="Website" />
@@ -104,7 +117,8 @@
                     </div>
                 </div><!--/ end right column-->
 
-
+                <p class="pull-right text-danger"
+                   th:if="${(param.message != null)}">Profile updated.</p>
 
 </div><!--/ end container-fluid-->
 </div><!--/ end content-->

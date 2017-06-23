@@ -37,11 +37,12 @@ public class UserController {
         }
 
         userDao.save(user);
-        return "dashboard";
+        return "redirect:/dashboard";
     }
 
+// TODO:
 // user login
-    @RequestMapping(value="/login", method = RequestMethod.GET)
+    @RequestMapping(value="login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("title", "Login");
         model.addAttribute(new User());
@@ -49,17 +50,18 @@ public class UserController {
         return "user/login";
     }
 
-    @RequestMapping(value="/login", method = RequestMethod.POST)
+    @RequestMapping(value="login", method = RequestMethod.POST)
     public String login(Model model, @ModelAttribute @Valid User user, Errors errors) {
 
         return "dashboard";
     }
 
+// TODO:
 // user logout
 
 // edit user profile
-@RequestMapping(value="/edit-profile/{userId}", method = RequestMethod.GET)
-public String login(Model model, @PathVariable(value="userId") int userId) {
+@RequestMapping(value="edit-profile/{userId}", method = RequestMethod.GET)
+public String login(Model model, @PathVariable("userId") int userId) {
     model.addAttribute("title", "User Profile");
     model.addAttribute("user", userDao.findOne(userId));
 
@@ -67,15 +69,23 @@ public String login(Model model, @PathVariable(value="userId") int userId) {
 }
 
     @RequestMapping(value="edit-profile", method = RequestMethod.POST)
-    public String login(Model model, @ModelAttribute @Valid User user, Errors errors, @RequestParam("userId") int id) {
-        User usr = userDao.findOne(id);
+    public String login(Model model, @ModelAttribute @Valid User user, Errors errors, @RequestParam int userId) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "User Profile");
+            return "user/edit-profile";
+        }
+
+        User usr = userDao.findOne(userId);
         usr.setfName(user.getfName());
         usr.setlName(user.getlName());
+        usr.setPhoneNumber(user.getPhoneNumber());
         usr.setCompany(user.getCompany());
         usr.setWebsite(user.getWebsite());
-
         userDao.save(usr);
-        return "user/edit-profile";
+
+        String message = " ";
+        return "redirect:edit-profile/"+ userId + "?message=" + message;
     }
 
 }

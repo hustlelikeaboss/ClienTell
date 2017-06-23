@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,7 +21,7 @@ public class CustomerController {
     @Autowired
     private CustomerDao customerDao;
 
-    // display all existing customers
+// display all existing customers
     @RequestMapping(value="")
     public String index(Model model) {
         model.addAttribute("title", "Customers");
@@ -32,7 +30,7 @@ public class CustomerController {
         return "customer/index";
     }
 
-    // add new customers
+// add new customers
     @RequestMapping(value="add", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute("title", "Add New Customers");
@@ -51,5 +49,45 @@ public class CustomerController {
         customerDao.save(customer);
         return "redirect:";
     }
+
+// edit customer profile
+    @RequestMapping(value="edit/{customerId}", method = RequestMethod.GET)
+    public String edit(Model model, @PathVariable("customerId") int customerId) {
+        model.addAttribute("title", "Customer Profile");
+        model.addAttribute("customer", customerDao.findOne(customerId));
+
+        return "customer/edit";
+    }
+
+    @RequestMapping(value="edit", method = RequestMethod.POST)
+    public String edit(Model model, @ModelAttribute @Valid Customer customer, Errors errors, @RequestParam("customerId") int customerId) {
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Customer Profile");
+            return "customer/edit";
+        }
+
+        Customer c = customerDao.findOne(customerId);
+
+        c.setfName(customer.getfName());
+        c.setlName(customer.getlName());
+        c.setEmail(customer.getEmail());
+        c.setPhoneNumber(customer.getPhoneNumber());
+        c.setCompany(customer.getCompany());
+        c.setWebsite(customer.getWebsite());
+        c.setStreetAddress(customer.getStreetAddress());
+        c.setCity(customer.getCity());
+        c.setState(customer.getState());
+        c.setZipCode(customer.getZipCode());
+
+        customerDao.save(c);
+
+        String message = " ";
+
+        return "redirect:edit/"+ customerId + "?message=" + message;
+    }
+
+
+
+
 
 }

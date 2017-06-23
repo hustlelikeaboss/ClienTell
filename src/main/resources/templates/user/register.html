@@ -17,6 +17,14 @@
 
                         <form class="form-group" th:object="${user}" method="post" action="/user/register">
 
+                            <label th:for="*{fName}"></label>
+                            <input type="text" th:field="*{fName}" placeholder="First Name" class="form-control" />
+                            <span th:errors="*{fName}"></span>
+
+                            <label th:for="*{lName}"></label>
+                            <input type="text" th:field="*{lName}" placeholder="Last Name" class="form-control" />
+                            <span th:errors="*{lName}"></span>
+
                             <label th:for="*{email}"></label>
                             <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
                             <span th:errors="*{email}"></span>

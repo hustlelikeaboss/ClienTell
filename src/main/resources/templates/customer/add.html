@@ -33,13 +33,13 @@
                             <span th:errors="*{email}"></span>
 
                             <label th:for="*{phoneNumber}"></label>
-                            <input type="text" th:field="*{phoneNumber}" placeholder="phone number (format: (xxx)xxx-xxxx)" class="form-control" />
+                            <input type="tel" th:field="*{phoneNumber}" placeholder="phone number" class="form-control" />
                             <span th:errors="*{phoneNumber}"></span>
 
                             <br/>
 
                             <div class="text-center">
-                                <button type="submit" class="btn btn-info btn-fill btn-wd">Add customer</button>
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Add Customer</button>
                             </div>
                             <div class="clearfix"></div>
 

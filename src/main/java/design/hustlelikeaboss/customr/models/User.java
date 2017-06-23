@@ -22,23 +22,22 @@ public class User {
     @Email
     private String email;
 
-    @NotNull
     @Size(min=3, max=15)
     private String password;
 
-    @NotNull
     @Size(min=3, max=15)
     private String verify;
 
     private String fName;
     private String lName;
+    private String phoneNumber;
     private String company;
     private String website;
     private String streetAddress;
     private String city;
     private String state;
     private String Country;
-    private int zipCode;
+    private String zipCode;
 
 // constructors
 
@@ -149,11 +148,21 @@ public class User {
         Country = country;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
 }

@@ -34,6 +34,7 @@
                                             <td th:text="${customer.lName}"></td>
                                             <td th:text="${customer.email}"></td>
                                             <td th:text="${customer.phoneNumber}"></td>
+                                            <td><a th:href="@{ '/customer/edit/' + ${customer.id} }">Edit</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
