@@ -1,12 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-
-</head>
+<head th:replace="dashboard-fragments :: head"></head>
 <body>
 
+<div class="wrapper">
+    <div th:replace="page-fragments :: sidebar"></div> <!--/ end sidebar nav-->
+
+    <div class="main-panel">
+
+        <div th:replace="page-fragments :: navbar"></div>
+
+
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <p>Coming soon</p>
+
+                </div>
+
+            </div><!--/ end container-fluid-->
+        </div><!--/ end content-->
+        <footer th:replace="page-fragments :: footer"></footer>
+    </div><!--/ end main panel-->
+</div><!--/ end wrapper-->
 
 </body>
+
 </html>

@@ -5,17 +5,20 @@
 
 <div class="wrapper">
 
-    <nav th:replace="page-fragments :: nav"></nav>
+    <nav th:replace="page-fragments :: sidebar"></nav>
 
-    <div class="register-background">
-        <div class="filter-black"></div>
-        <div class="container">
-            <div class="row">
+    <div class="main-panel">
+
+        <div th:replace="page-fragments :: nav"></div>
+
+        <div class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="row">
+
                 <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
-                    <div class="register-card">
-                        <h3 class="title">Meet Your Customers</h3>
 
-                        <form class="form-group" th:object="${user}" method="post" action="/user/register">
+                    <form class="form-group" th:object="${user}" method="post" action="/user/register">
 
                             <label th:for="*{fName}"></label>
                             <input type="text" th:field="*{fName}" placeholder="First Name" class="form-control" />
@@ -37,20 +40,21 @@
                             <input type="password" th:field="*{verify}" placeholder="Verify Password" class="form-control" />
 
                             <br/>
-                            <input type="submit" value="Register" class="form-control btn btn-simple" />
 
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Register</button>
+                            </div>
+                            <div class="clearfix"></div>
 
                         </form>
 
-                    </div>
+                </div>
                 </div>
             </div>
 
-            <hr/>
-
-            <footer th:replace="page-fragments :: footer"></footer>
-
         </div>
+        </div>
+        <footer th:replace="page-fragments :: footer"></footer>
     </div>
 </div>
 
