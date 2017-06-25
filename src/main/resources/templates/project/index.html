@@ -13,21 +13,64 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-
-
                     <div class="col-md-12">
                         <div class="card">
-                            <p class="text-success">Coming soon</p>
+                            <div class="header">
+                                <h4 class="title">Current Projects</h4>
+                                <p class="category">Click on each project for more details.</p>
+                            </div>
+
+                            <div th:if="${projects} and ${projects.size()}" class="content table-responsive table-full-width">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <th>Project Name</th>
+                                    <th>Project Type</th>
+                                    <th>Project Status</th>
+                                    <th>Customer</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="project : ${projects}">
+                                        <td>
+                                            <a th:href="@{ '/project/edit/' + ${project.id} }"
+                                               th:text="${project.name}">
+                                            </a>
+                                        </td>
+                                        <td th:text="${project.projectType.name}"></td>
+                                        <td th:text="${project.projectStatus.name}"></td>
+                                        <td th:text="${project.customer.fName + ' ' + project.customer.lName}"></td>
+                                        <td><a th:href="@{ '/project/edit/' + ${project.id} }">Edit</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p th:unless="${projects} and ${projects.size()}">No Projects Yet.</p>
+
+                        </div>
+
+
+
+                    </div><!--/ end col-md-12-->
+                </div><!--/ end row-->
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <!--Add Customers button-->
+                        <div class="text-center">
+                            <a th:href="@{/project/add}" class="btn btn-info btn-fill btn-wd">Add Projects</a>
                         </div>
                     </div>
+                    <div class="clearfix"></div>
+                </div>
 
-                </div><!-- /end row-->
-            </div><!-- /end container-fluid-->
-        </div> <!-- /end content-->
+            </div><!--/ end container-fluid-->
+        </div><!--/ end content-->
 
         <footer th:replace="dashboard-fragments :: footer"></footer>
+    </div><!--/ end main panel-->
+</div><!--/ end wrapper-->
 
-    </div> <!-- /end main-panel-->
-</div> <!-- /end wrapper-->
 </body>
+
 </html>

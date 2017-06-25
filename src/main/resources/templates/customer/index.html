@@ -23,17 +23,33 @@
                             <div th:if="${customers} and ${customers.size()}" class="content table-responsive table-full-width">
                                 <table class="table table-striped">
                                     <thead>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
+                                        <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone Number</th>
+                                        <th>Website</th>
                                     </thead>
                                         <tbody>
                                         <tr th:each="customer : ${customers}">
-                                            <td th:text="${customer.fName}"></td>
-                                            <td th:text="${customer.lName}"></td>
-                                            <td th:text="${customer.email}"></td>
+                                            <td>
+                                                <a th:href="@{ '/customer/edit/' + ${customer.id} }">
+                                                    <span th:text="${customer.fName}"></span>
+                                                    <span th:text="${customer.lName}"></span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{ 'mailto:' + ${customer.email}}">
+                                                    <span th:text="${customer.email}"></span>
+                                                </a>
+                                            </td>
+
+
                                             <td th:text="${customer.phoneNumber}"></td>
+
+                                            <td>
+                                                <a th:href="@{ 'http://' + ${customer.website} }">
+                                                    <span th:text="${customer.website}"></span>
+                                                </a>
+                                            </td>
                                             <td><a th:href="@{ '/customer/edit/' + ${customer.id} }">Edit</a></td>
                                         </tr>
                                     </tbody>

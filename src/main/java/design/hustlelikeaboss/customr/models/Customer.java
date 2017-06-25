@@ -1,10 +1,11 @@
 package design.hustlelikeaboss.customr.models;
 
 import org.hibernate.validator.constraints.Email;
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+
+import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by quanjin on 6/20/17.
@@ -34,8 +35,12 @@ public class Customer {
     private String Country;
     private String zipCode;
 
-    // List<Project> projects;
+    // assign customers to users
+    @ManyToMany
+    private List<User> users = new ArrayList<>();
 
+    @OneToMany
+    private List<Project> projects = new ArrayList<>();
 
 //  constructors
     public Customer(String fName, String lName, String email, String phoneNumber) {
@@ -51,6 +56,12 @@ public class Customer {
 
     public Customer(String fName, String email) {
         this.fName = fName;
+        this.email = email;
+    }
+
+    public Customer(String fName, String lName, String email) {
+        this.fName = fName;
+        this.lName = lName;
         this.email = email;
     }
 
@@ -148,5 +159,29 @@ public class Customer {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void addProject(Project project) {
+        this.projects.add(project);
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }

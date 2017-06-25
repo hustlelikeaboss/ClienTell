@@ -40,8 +40,7 @@ public class UserController {
         return "redirect:/dashboard";
     }
 
-// TODO:
-// user login
+// TODO #1: user login
     @RequestMapping(value="login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("title", "Login");
@@ -56,8 +55,9 @@ public class UserController {
         return "dashboard";
     }
 
-// TODO:
+// TODO #2: user logout
 // user logout
+
 
 // edit user profile
 @RequestMapping(value="edit-profile/{userId}", method = RequestMethod.GET)

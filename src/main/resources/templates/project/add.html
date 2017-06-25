@@ -1,12 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-
-</head>
+<head th:replace="dashboard-fragments :: head"></head>
 <body>
 
+<div class="wrapper">
+    <div th:replace="dashboard-fragments :: sidebar"></div>
+
+    <div class="main-panel">
+        <nav th:replace="dashboard-fragments :: nav"></nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-3"></div>
+
+                    <div class="col-md-6">
+
+                        <form class="form-group" th:object="${project}" method="post" action="/project/add">
+
+                            <label th:for="*{name}"></label>
+                            <input type="text" th:field="*{name}" placeholder="Project Name" class="form-control" />
+                            <span th:errors="*{name}"></span>
+
+                            <label th:for="*{projectType}"></label>
+                            <select class="form-control" name="projectType" placeholder="Project Type">
+                                <option th:each="projectType : ${projectTypes}"
+                                        th:value="${projectType.id}"
+                                        th:text="${projectType.Name}"></option>
+                            </select>
+
+                            <label th:for="*{projectStatus}"></label>
+                            <select class="form-control" name="projectStatus" placeholder="Project Status">
+                                <option th:each="projectStatus : ${projectStatuses}"
+                                        th:value="${projectStatus.id}"
+                                        th:text="${projectStatus.Name}"></option>
+                            </select>
+
+
+                            <!--TODO #4: datalist-->
+
+
+
+                            <label th:for="*{customer}"></label>
+                            <select class="form-control" name="customer" placeholder="Customer Name">
+                                <option th:each="customer : ${customers}"
+                                        th:value="${customer.id}"
+                                        th:text="${customer.fName + ' ' + customer.lName}"></option>
+                            </select>
+
+                            <br/>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Add Project</button>
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </form>
+                    </div>
+
+                    <div class="col-md-3"></div>
+
+                </div><!--/ end row-->
+            </div><!--/ end container-fluid-->
+        </div><!--/ end content-->
+        <footer th:replace="dashboard-fragments :: footer"></footer>
+    </div><!--/ end main panel-->
+</div><!--/ end wrapper-->
 
 </body>
+
 </html>

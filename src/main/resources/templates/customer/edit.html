@@ -18,12 +18,12 @@
                     <div class="card card-user">
 
                         <div class="image">
-                            <img th:src="@{/img/background.jpg}" alt="..."/>
+                            <img th:src="@{/img/background/background-3.jpg}" alt="..."/>
                         </div>
 
                         <div class="content">
                             <div class="author">
-                                <img class="avatar border-white" th:src="@{/img/faces/face-2.jpg}" alt="..."/>
+                                <img class="avatar border-white" th:src="@{/img/faces/face-6.jpg}" alt="..."/>
                                 <br/>
 
                                 <h4 class="title" th:unless="${customer.fName == null and customer.lName == null}">
@@ -38,10 +38,64 @@
                                 </a>
                                 <br/>
                                 <span th:text="${customer.phoneNumber}"></span><br/>
+
+                                <br/>
+                                <p>
+                                    <span><i class="ti-instagram"></i></span>
+                                    <span><i class="ti-facebook"></i></span>
+                                    <span><i class="ti-pinterest"></i></span>
+                                </p>
                             </div>
 
                         </div>
-                    </div>
+                    </div><!--/ end top card-->
+
+
+                    <div class="card" th:if="${projects}">
+                        <!--card header-->
+                        <div class="row">
+                        <div class="col-md-1"></div>
+
+                        <div class="col-md-10">
+                            <div class="header">
+                                <h6 class="text-bold text-center">Projects</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        </div>
+
+                        <!--project table-->
+                        <div class="content">
+
+                            <div class="row">
+                                <div class="col-md-1"></div>
+
+                                <div class="col-md-10">
+
+                                    <div class="table-responsive table-full-width">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <th class="category">Type</th>
+                                                <th class="category">Status</th>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr th:each="project : ${projects}">
+                                                    <td th:text="${project.projectType.name}"></td>
+                                                    <td th:text="${project.projectStatus.name}"></td>
+                                                    <td><a th:href="@{'/project/edit/' + ${project.id} }">Details</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1"></div>
+                            </div>
+                        </div>
+                    </div><!-- / end bottom card-->
+
+
                 </div><!--/end left column-->
 
                 <!--right column-->

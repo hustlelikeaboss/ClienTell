@@ -1,7 +1,9 @@
 package design.hustlelikeaboss.customr.controllers;
 
 import design.hustlelikeaboss.customr.models.Customer;
+import design.hustlelikeaboss.customr.models.Project;
 import design.hustlelikeaboss.customr.models.data.CustomerDao;
+import design.hustlelikeaboss.customr.models.data.ProjectDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by quanjin on 6/21/17.
@@ -20,6 +23,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerDao customerDao;
+
+    @Autowired
+    private ProjectDao projectDao;
 
 // display all existing customers
     @RequestMapping(value="")
@@ -55,12 +61,15 @@ public class CustomerController {
     public String edit(Model model, @PathVariable("customerId") int customerId) {
         model.addAttribute("title", "Customer Profile");
         model.addAttribute("customer", customerDao.findOne(customerId));
+        model.addAttribute("projects",  projectDao.findByCustomerId(customerId));
 
         return "customer/edit";
     }
 
     @RequestMapping(value="edit", method = RequestMethod.POST)
-    public String edit(Model model, @ModelAttribute @Valid Customer customer, Errors errors, @RequestParam("customerId") int customerId) {
+    public String edit(Model model, @ModelAttribute @Valid Customer customer, Errors errors,
+                       @RequestParam("customerId") int customerId) {
+
         if (errors.hasErrors()) {
             model.addAttribute("title", "Customer Profile");
             return "customer/edit";

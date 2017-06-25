@@ -2,11 +2,11 @@ package design.hustlelikeaboss.customr.models;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by quanjin on 6/20/17.
@@ -38,6 +38,10 @@ public class User {
     private String state;
     private String Country;
     private String zipCode;
+
+    // assign customers to users
+    @ManyToMany(mappedBy = "users")
+    private List<Customer> customers = new ArrayList<>();
 
 // constructors
 

@@ -1,12 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-
-</head>
+<head th:replace="dashboard-fragments :: head"></head>
 <body>
 
+<div class="wrapper">
+    <div th:replace="dashboard-fragments :: sidebar"></div>
+
+    <div class="main-panel">
+        <nav th:replace="dashboard-fragments :: nav"></nav>
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-3"></div>
+
+                    <div class="col-md-6">
+
+                        <form class="form-group" th:object="${project}" method="post" action="/project/edit">
+
+                            <label th:for="*{name}"></label>
+                            <input type="text" th:field="*{name}" placeholder="Project Name" class="form-control" />
+                            <span th:errors="*{name}"></span>
+
+                            <label th:for="*{projectType}"></label>
+                            <select class="form-control" name="projectType" th:placeholder="*{projectType.name}">
+                                <option th:each="projectType : ${projectTypes}"
+                                        th:value="${projectType.id}"
+                                        th:text="${projectType.Name}"></option>
+                            </select>
+
+                            <label th:for="*{projectStatus}"></label>
+                            <select class="form-control" name="projectStatus" th:placeholder="*{projectStatus.name}">
+                                <option th:each="projectStatus : ${projectStatuses}"
+                                        th:value="${projectStatus.id}"
+                                        th:text="${projectStatus.Name}"></option>
+                            </select>
+
+                            <!--TODO #3: datalist-->
+<!--                            &lt;!&ndash;The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari&ndash;&gt;
+                            <label th:for="*{projectType}"></label>
+                            <input type="text" name="project-type" list="project-types" placeholder="Project Type" class="form-control" th:placeholder="${project.projectType.name}"/>
+                            <datalist id="project-types">
+                                <option th:each="projectType : ${projectTypes}" th:value="${projectType.name}" th:text="${projectType.id}"></option>
+                            </datalist>
+                            <span th:errors="*{projectType.name}"></span>
+
+                            &lt;!&ndash;The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari&ndash;&gt;
+                            <label th:for="*{projectStatus}"></label>
+                            <input type="text" name="project-status" list="project-statuses" placeholder="Project Status" class="form-control" th:placeholder="${project.projectStatus.name}"/>
+                            <datalist id="project-statuses">
+                                <option th:each="projectStatus : ${projectStatuses}" th:value="${projectStatus.name}" th:text="${projectStatus.id}"></option>
+                            </datalist>-->
+
+
+                            <label th:for="*{customer}"></label>
+                            <select class="form-control" name="customer" th:placeholder="*{customer.fName + ' ' + customer.lName}">
+                                <option th:each="customer : ${customers}"
+                                        th:value="${customer.id}"
+                                        th:text="${customer.fName + ' ' + customer.lName}"></option>
+                            </select>
+
+                            <input type="hidden" name="projectId" th:value="${project.id}" />
+
+                            <br/>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Edit Project</button>
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </form>
+                    </div>
+
+                    <div class="col-md-3"></div>
+
+                </div><!--/ end row-->
+            </div><!--/ end container-fluid-->
+        </div><!--/ end content-->
+        <footer th:replace="dashboard-fragments :: footer"></footer>
+    </div><!--/ end main panel-->
+</div><!--/ end wrapper-->
 
 </body>
+
 </html>
