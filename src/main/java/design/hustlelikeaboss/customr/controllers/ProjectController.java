@@ -1,6 +1,7 @@
 package design.hustlelikeaboss.customr.controllers;
 
 import design.hustlelikeaboss.customr.models.Project;
+import design.hustlelikeaboss.customr.models.ProjectType;
 import design.hustlelikeaboss.customr.models.data.CustomerDao;
 import design.hustlelikeaboss.customr.models.data.ProjectDao;
 import design.hustlelikeaboss.customr.models.data.ProjectStatusDao;
@@ -68,7 +69,7 @@ public class ProjectController {
     }
 
 
-    // edit project
+    // edit project: using datalist
     @GetMapping("edit/{projectId}")
     public String edit(Model model, @PathVariable("projectId") int id) {
         model.addAttribute("title", "Edit Project");
@@ -82,7 +83,8 @@ public class ProjectController {
 
     @PostMapping("edit")
     public String edit(Model model, @ModelAttribute Project project, Errors errors,
-                       @RequestParam("projectId") int projectId) {
+                       @RequestParam("projectId") int projectId,
+                       @RequestParam("project-type") String projectType) { // test w/ projectType
         if (errors.hasErrors()) {
             model.addAttribute("title", "Edit Project");
             model.addAttribute("projectStatuses", projectStatusDao.findAll());
@@ -92,8 +94,16 @@ public class ProjectController {
 
         Project p = projectDao.findOne(projectId);
         p.setName(project.getName());
-        p.setProjectType(project.getProjectType());
         p.setProjectStatus(project.getProjectStatus());
+
+        if (projectType.chars().allMatch( Character::isDigit )) {
+            p.setProjectType(projectTypeDao.findOne(Integer.parseInt(projectType)));
+        } else {
+            ProjectType newType = new ProjectType(projectType);
+            projectTypeDao.save(newType);
+            p.setProjectType(newType);
+        }
+
         p.setCustomer(project.getCustomer());
         projectDao.save(p);
 
