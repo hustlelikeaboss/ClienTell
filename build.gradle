@@ -23,7 +23,6 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile ("org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.0.RELEASE")
 	compile ("io.github.jpenren:thymeleaf-spring-data-dialect:3.1.1")
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -31,8 +30,12 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
-	ext["thymeleaf.version"] = "3.0.2.RELEASE"
-	ext["thymeleaf-layout-dialect.version"] = "2.0.1"
+    compile ('net.sourceforge.nekohtml:nekohtml:1.9.21')
+
+	compile 'org.springframework.security:spring-security-web:4.2.3.RELEASE'
+
+//	ext["thymeleaf.version"] = "3.0.2.RELEASE"
+//	ext["thymeleaf-layout-dialect.version"] = "2.0.1"
 }
 
 bootRun {
