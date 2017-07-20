@@ -1,6 +1,7 @@
 package design.hustlelikeaboss.customr.models;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,15 +19,18 @@ public class User {
     @GeneratedValue
     private int id;
 
-    @NotNull
-    @Email
-    private String email;
+    @NotEmpty
+    @Size(min=3, max=15)
+    private String username;
 
     @Size(min=3, max=15)
     private String password;
 
     @Size(min=3, max=15)
     private String verify;
+
+    @Email
+    private String email;
 
     private String fName;
     private String lName;
@@ -45,14 +49,9 @@ public class User {
 
 // constructors
 
-    public User(String email, String password, String verify) {
-        this.email = email;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
-        this.verify = verify;
-    }
-
-    public User(String email) {
-        this.email = email;
     }
 
     public User() {
@@ -168,5 +167,19 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
 }

@@ -1,0 +1,4 @@
+.logout input[type=submit]{
+    border: 0px;
+    background: rgba(0, 0, 0, 0);
+}

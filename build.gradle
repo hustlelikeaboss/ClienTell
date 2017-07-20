@@ -33,6 +33,9 @@ dependencies {
     compile ('net.sourceforge.nekohtml:nekohtml:1.9.21')
 
 	compile 'org.springframework.security:spring-security-web:4.2.3.RELEASE'
+    compile("org.springframework.boot:spring-boot-starter-security")
+    testCompile("org.springframework.security:spring-security-test")
+
 
 //	ext["thymeleaf.version"] = "3.0.2.RELEASE"
 //	ext["thymeleaf-layout-dialect.version"] = "2.0.1"

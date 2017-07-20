@@ -37,7 +37,7 @@ public class UserController {
         }
 
         userDao.save(user);
-        return "redirect:/dashboard";
+        return "redirect:/login";
     }
 
 // TODO #1: user login
@@ -49,11 +49,6 @@ public class UserController {
         return "user/login";
     }
 
-    @RequestMapping(value="login", method = RequestMethod.POST)
-    public String login(Model model, @ModelAttribute @Valid User user, Errors errors) {
-
-        return "dashboard";
-    }
 
 // TODO #2: user logout
 // user logout
