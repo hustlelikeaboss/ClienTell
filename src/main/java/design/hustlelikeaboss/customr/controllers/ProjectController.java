@@ -30,6 +30,9 @@ public class ProjectController {
     @Autowired
     private ProjectStatusDao projectStatusDao;
 
+
+// display all existing projects
+
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("title", "Projects");
@@ -38,7 +41,9 @@ public class ProjectController {
         return "project/index";
     }
 
-    // add project
+
+// add project
+
     @GetMapping(value="add")
     public String add(Model model) {
         model.addAttribute("title", "Add Projects");
@@ -58,9 +63,9 @@ public class ProjectController {
             return "project/add";
         }
 
-//        projectTypeDao.save(project.getProjectType());
-//        projectStatusDao.save(project.getProjectStatus());
-//        customerDao.save(project.getCustomer());
+        //projectTypeDao.save(project.getProjectType());
+        //projectStatusDao.save(project.getProjectStatus());
+        //customerDao.save(project.getCustomer());
 
         projectDao.save(project);
 
@@ -68,7 +73,8 @@ public class ProjectController {
     }
 
 
-    // edit project
+// edit project
+
     @GetMapping("edit/{projectId}")
     public String edit(Model model, @PathVariable("projectId") int id) {
         model.addAttribute("title", "Edit Project");

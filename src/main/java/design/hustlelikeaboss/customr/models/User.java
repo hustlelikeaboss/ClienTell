@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
+
 /**
  * Created by quanjin on 6/20/17.
  */
@@ -40,9 +42,13 @@ public class User {
     @Column(name = "active")
     private int active;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    // map user to customers
+    @OneToMany(cascade=ALL, mappedBy="user")
+    private Set<Customer> customers;
 
 
     public int getId() {
@@ -99,5 +105,11 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Customer> getCustomers() { return customers; }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
     }
 }

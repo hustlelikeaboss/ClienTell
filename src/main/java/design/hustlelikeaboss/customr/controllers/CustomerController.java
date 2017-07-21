@@ -1,9 +1,11 @@
 package design.hustlelikeaboss.customr.controllers;
 
 import design.hustlelikeaboss.customr.models.Customer;
-import design.hustlelikeaboss.customr.models.Project;
+import design.hustlelikeaboss.customr.models.User;
 import design.hustlelikeaboss.customr.models.data.CustomerDao;
 import design.hustlelikeaboss.customr.models.data.ProjectDao;
+import design.hustlelikeaboss.customr.models.data.UserDao;
+import design.hustlelikeaboss.customr.models.data.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Created by quanjin on 6/21/17.
@@ -27,11 +28,22 @@ public class CustomerController {
     @Autowired
     private ProjectDao projectDao;
 
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private UserService userService;
+
+
 // display all existing customers
     @RequestMapping(value="")
     public String index(Model model) {
+
+        User user = userService.retrieveUser();
+
         model.addAttribute("title", "Customers");
-        model.addAttribute("customers", customerDao.findAll());
+//        model.addAttribute("customers", customerDao.findAll());
+        model.addAttribute("customers", user.getCustomers());
 
         return "customer/index";
     }
@@ -52,6 +64,9 @@ public class CustomerController {
             return "customer/add";
         }
 
+        User user = userService.retrieveUser();
+
+        customer.setUser(user);
         customerDao.save(customer);
         return "redirect:";
     }

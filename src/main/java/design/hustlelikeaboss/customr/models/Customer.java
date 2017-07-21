@@ -35,9 +35,10 @@ public class Customer {
     private String Country;
     private String zipCode;
 
-    // assign customers to users
-    @ManyToMany
-    private List<User> users = new ArrayList<>();
+    // assign customers to user
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 
     @OneToMany
     private List<Project> projects = new ArrayList<>();
@@ -161,27 +162,19 @@ public class Customer {
         this.zipCode = zipCode;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void addUser(User user) {
-        this.users.add(user);
-    }
-
     public List<Project> getProjects() {
         return projects;
     }
 
-    public void addProject(Project project) {
-        this.projects.add(project);
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
