@@ -2,6 +2,7 @@ package design.hustlelikeaboss.customr.controllers;
 
 import design.hustlelikeaboss.customr.models.User;
 import design.hustlelikeaboss.customr.models.data.UserDao;
+import design.hustlelikeaboss.customr.models.data.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,9 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserService userService;
+
 // register user
     @RequestMapping(value="register", method = RequestMethod.GET)
     public String register(Model model) {
@@ -33,10 +37,11 @@ public class UserController {
     public String register(Model model, @ModelAttribute @Valid User user, Errors errors) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
+            model.addAttribute("user", user);
             return "user/register";
         }
 
-        userDao.save(user);
+        userService.saveUser(user);
         return "redirect:/login";
     }
 
@@ -55,14 +60,14 @@ public class UserController {
 
 
 // edit user profile
-@RequestMapping(value="edit-profile/{userId}", method = RequestMethod.GET)
-public String login(Model model, @PathVariable("userId") int userId) {
-    model.addAttribute("title", "User Profile");
-    model.addAttribute("user", userDao.findOne(userId));
+    @RequestMapping(value="edit-profile/{userId}", method = RequestMethod.GET)
+    public String login(Model model, @PathVariable("userId") int userId) {
+        model.addAttribute("title", "User Profile");
+        model.addAttribute("user", userDao.findOne(userId));
 
-    return "user/edit-profile";
-}
-
+        return "user/edit-profile";
+    }
+/*
     @RequestMapping(value="edit-profile", method = RequestMethod.POST)
     public String login(Model model, @ModelAttribute @Valid User user, Errors errors, @RequestParam int userId) {
 
@@ -81,6 +86,6 @@ public String login(Model model, @PathVariable("userId") int userId) {
 
         String message = " ";
         return "redirect:edit-profile/"+ userId + "?message=" + message;
-    }
+    }*/
 
 }

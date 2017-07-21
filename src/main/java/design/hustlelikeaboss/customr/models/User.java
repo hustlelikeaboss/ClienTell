@@ -1,74 +1,56 @@
 package design.hustlelikeaboss.customr.models;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by quanjin on 6/20/17.
  */
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private int id;
 
-    @NotEmpty
-    @Size(min=3, max=15)
-    private String username;
-
-    @Size(min=3, max=15)
-    private String password;
-
-    @Size(min=3, max=15)
-    private String verify;
-
-    @Email
+    @Column(name = "email")
+    @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "*Please provide an email")
     private String email;
 
-    private String fName;
-    private String lName;
-    private String phoneNumber;
-    private String company;
-    private String website;
-    private String streetAddress;
-    private String city;
-    private String state;
-    private String Country;
-    private String zipCode;
+    @Column(name = "password")
+    @Length(min = 5, message = "*Your password must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your password")
+    private String password;
 
-    // assign customers to users
-    @ManyToMany(mappedBy = "users")
-    private List<Customer> customers = new ArrayList<>();
+    @Column(name = "name")
+//    @NotEmpty(message = "*Please provide your name")
+    private String name;
 
-// constructors
+    @Column(name = "last_name")
+//    @NotEmpty(message = "*Please provide your last name")
+    private String lastName;
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+    @Column(name = "active")
+    private int active;
 
-    public User() {
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-//  setters & getters
 
     public int getId() {
         return id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -79,107 +61,43 @@ public class User {
         this.password = password;
     }
 
-    public String getVerify() {
-        return verify;
+    public String getName() {
+        return name;
     }
 
-    public void setVerify(String verify) {
-        this.verify = verify;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getfName() {
-        return fName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getlName() {
-        return lName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCompany() {
-        return company;
+    public int getActive() {
+        return active;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setActive(int active) {
+        this.active = active;
     }
 
-    public String getWebsite() {
-        return website;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public String getStreetAddress() {
-        return streetAddress;
-    }
-
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCountry() {
-        return Country;
-    }
-
-    public void setCountry(String country) {
-        Country = country;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

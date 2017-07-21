@@ -36,6 +36,9 @@
                             <input type="tel" th:field="*{phoneNumber}" placeholder="phone number" class="form-control" />
                             <span th:errors="*{phoneNumber}"></span>
 
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+
                             <br/>
 
                             <div class="text-center">

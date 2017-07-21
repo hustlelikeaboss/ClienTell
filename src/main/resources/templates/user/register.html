@@ -20,9 +20,9 @@
 
                     <form class="form-group" th:object="${user}" method="post" action="/user/register">
 
-                            <label th:for="*{username}"></label>
+                            <!--<label th:for="*{username}"></label>
                             <input type="text" th:field="*{username}" placeholder="Username" class="form-control" />
-                            <span th:errors="*{lName}"></span>
+                            <span th:errors="*{username}"></span>-->
 
                             <label th:for="*{email}"></label>
                             <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
@@ -32,8 +32,8 @@
                             <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
                             <span th:errors="*{password}"></span>
 
-                            <label th:for="*{verify}"></label>
-                            <input type="password" th:field="*{verify}" placeholder="Verify Password" class="form-control" />
+                            <label for="verify"></label>
+                            <input type="password" id="verify" name="verify" placeholder="Verify Password" class="form-control" />
 
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
