@@ -24,12 +24,12 @@
                             <input type="text" th:field="*{name}" placeholder="Project Name" class="form-control" />
                             <span th:errors="*{name}"></span>
 
-                            <label th:for="*{projectType}"></label>
+                            <!--<label th:for="*{projectType}"></label>
                             <select class="form-control" name="projectType" th:placeholder="*{projectType.name}">
                                 <option th:each="projectType : ${projectTypes}"
                                         th:value="${projectType.id}"
                                         th:text="${projectType.Name}"></option>
-                            </select>
+                            </select>-->
 
                             <label th:for="*{projectStatus}"></label>
                             <select class="form-control" name="projectStatus" th:placeholder="*{projectStatus.name}">
@@ -39,16 +39,17 @@
                             </select>
 
                             <!--TODO #3: datalist-->
-<!--                            &lt;!&ndash;The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari&ndash;&gt;
+                            <!--The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari-->
                             <label th:for="*{projectType}"></label>
                             <input type="text" name="project-type" list="project-types" placeholder="Project Type" class="form-control" th:placeholder="${project.projectType.name}"/>
                             <datalist id="project-types">
-                                <option th:each="projectType : ${projectTypes}" th:value="${projectType.name}" th:text="${projectType.id}"></option>
+                                <option th:each="projectType : ${projectTypes}" th:text="${projectType.name}" th:value="${projectType.id}"></option>
                             </datalist>
                             <span th:errors="*{projectType.name}"></span>
 
-                            &lt;!&ndash;The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari&ndash;&gt;
-                            <label th:for="*{projectStatus}"></label>
+                            <!--The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari-->
+
+                            <!--<label th:for="*{projectStatus}"></label>
                             <input type="text" name="project-status" list="project-statuses" placeholder="Project Status" class="form-control" th:placeholder="${project.projectStatus.name}"/>
                             <datalist id="project-statuses">
                                 <option th:each="projectStatus : ${projectStatuses}" th:value="${projectStatus.name}" th:text="${projectStatus.id}"></option>

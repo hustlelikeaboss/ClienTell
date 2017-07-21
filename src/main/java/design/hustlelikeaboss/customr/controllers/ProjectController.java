@@ -1,6 +1,7 @@
 package design.hustlelikeaboss.customr.controllers;
 
 import design.hustlelikeaboss.customr.models.Project;
+import design.hustlelikeaboss.customr.models.ProjectType;
 import design.hustlelikeaboss.customr.models.data.CustomerDao;
 import design.hustlelikeaboss.customr.models.data.ProjectDao;
 import design.hustlelikeaboss.customr.models.data.ProjectStatusDao;
@@ -30,9 +31,6 @@ public class ProjectController {
     @Autowired
     private ProjectStatusDao projectStatusDao;
 
-
-// display all existing projects
-
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("title", "Projects");
@@ -41,9 +39,7 @@ public class ProjectController {
         return "project/index";
     }
 
-
-// add project
-
+    // add project
     @GetMapping(value="add")
     public String add(Model model) {
         model.addAttribute("title", "Add Projects");
@@ -63,9 +59,9 @@ public class ProjectController {
             return "project/add";
         }
 
-        //projectTypeDao.save(project.getProjectType());
-        //projectStatusDao.save(project.getProjectStatus());
-        //customerDao.save(project.getCustomer());
+//        projectTypeDao.save(project.getProjectType());
+//        projectStatusDao.save(project.getProjectStatus());
+//        customerDao.save(project.getCustomer());
 
         projectDao.save(project);
 
@@ -73,8 +69,7 @@ public class ProjectController {
     }
 
 
-// edit project
-
+    // edit project: using datalist
     @GetMapping("edit/{projectId}")
     public String edit(Model model, @PathVariable("projectId") int id) {
         model.addAttribute("title", "Edit Project");
@@ -88,7 +83,8 @@ public class ProjectController {
 
     @PostMapping("edit")
     public String edit(Model model, @ModelAttribute Project project, Errors errors,
-                       @RequestParam("projectId") int projectId) {
+                       @RequestParam("projectId") int projectId,
+                       @RequestParam("project-type") String projectType) { // test w/ projectType
         if (errors.hasErrors()) {
             model.addAttribute("title", "Edit Project");
             model.addAttribute("projectStatuses", projectStatusDao.findAll());
@@ -98,8 +94,16 @@ public class ProjectController {
 
         Project p = projectDao.findOne(projectId);
         p.setName(project.getName());
-        p.setProjectType(project.getProjectType());
         p.setProjectStatus(project.getProjectStatus());
+
+        if (projectType.chars().allMatch( Character::isDigit )) {
+            p.setProjectType(projectTypeDao.findOne(Integer.parseInt(projectType)));
+        } else {
+            ProjectType newType = new ProjectType(projectType);
+            projectTypeDao.save(newType);
+            p.setProjectType(newType);
+        }
+
         p.setCustomer(project.getCustomer());
         projectDao.save(p);
 
