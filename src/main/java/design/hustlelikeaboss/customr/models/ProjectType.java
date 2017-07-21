@@ -19,7 +19,6 @@ public class ProjectType {
     @GeneratedValue
     private int id;
 
-    @NotNull
     private String name;
 
     @OneToMany
@@ -32,7 +31,6 @@ public class ProjectType {
 
     public ProjectType() {
     }
-
 
     // setters & getters
     public int getId() {

@@ -24,46 +24,32 @@
                             <input type="text" th:field="*{name}" placeholder="Project Name" class="form-control" />
                             <span th:errors="*{name}"></span>
 
-                            <!--<label th:for="*{projectType}"></label>
-                            <select class="form-control" name="projectType" th:placeholder="*{projectType.name}">
+                            <label th:for="*{projectType}"></label>
+                            <select class="form-control" name="projectType" placeholder="Project Type">
                                 <option th:each="projectType : ${projectTypes}"
                                         th:value="${projectType.id}"
-                                        th:text="${projectType.Name}"></option>
-                            </select>-->
-
-                            <label th:for="*{projectStatus}"></label>
-                            <select class="form-control" name="projectStatus" th:placeholder="*{projectStatus.name}">
-                                <option th:each="projectStatus : ${projectStatuses}"
-                                        th:value="${projectStatus.id}"
-                                        th:text="${projectStatus.Name}"></option>
+                                        th:text="${projectType.name}"
+                                        th:selected="${project.projectType} == ${projectType} ? true : false"></option>
                             </select>
 
-                            <!--TODO #3: datalist-->
-                            <!--The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari-->
-                            <label th:for="*{projectType}"></label>
-                            <input type="text" name="project-type" list="project-types" placeholder="Project Type" class="form-control" th:placeholder="${project.projectType.name}"/>
-                            <datalist id="project-types">
-                                <option th:each="projectType : ${projectTypes}" th:text="${projectType.name}" th:value="${projectType.id}"></option>
-                            </datalist>
-                            <span th:errors="*{projectType.name}"></span>
-
-                            <!--The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari-->
-
-                            <!--<label th:for="*{projectStatus}"></label>
-                            <input type="text" name="project-status" list="project-statuses" placeholder="Project Status" class="form-control" th:placeholder="${project.projectStatus.name}"/>
-                            <datalist id="project-statuses">
-                                <option th:each="projectStatus : ${projectStatuses}" th:value="${projectStatus.name}" th:text="${projectStatus.id}"></option>
-                            </datalist>-->
-
+                            <label th:for="*{projectStatus}"></label>
+                            <select class="form-control" name="projectStatus" placeholder="Project Status">
+                                <option th:each="projectStatus : ${projectStatuses}"
+                                        th:value="${projectStatus.id}"
+                                        th:text="${projectStatus.name}"
+                                        th:selected="${project.projectStatus} == ${projectStatus} ? true : false"></option>
+                            </select>
 
                             <label th:for="*{customer}"></label>
-                            <select class="form-control" name="customer" th:placeholder="*{customer.fName + ' ' + customer.lName}">
+                            <select class="form-control" name="customer" placeholder="Customer Name">
                                 <option th:each="customer : ${customers}"
                                         th:value="${customer.id}"
-                                        th:text="${customer.fName + ' ' + customer.lName}"></option>
+                                        th:text="${customer.fName + ' ' + customer.lName}"
+                                        th:selected="${project.customer.fName + project.customer.lName} == ${customer.fName + customer.lName} ? true : false"></option>
                             </select>
 
                             <input type="hidden" name="projectId" th:value="${project.id}" />
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
                             <br/>
 

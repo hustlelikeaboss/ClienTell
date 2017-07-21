@@ -3,6 +3,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
+import java.util.ArrayList;
 
 /**
  * Created by quanjin on 6/20/17.
@@ -76,4 +77,5 @@ public class Project {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
 }
