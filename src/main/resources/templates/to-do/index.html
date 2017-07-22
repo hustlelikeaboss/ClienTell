@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="dashboard-fragments :: head"></head>
-<body>
+<body ng-app="myApp" ng-controller="todoCtrl">
 
 <div class="wrapper">
     <div th:replace="dashboard-fragments :: sidebar"></div>
@@ -12,16 +12,62 @@
 
         <div class="content">
             <div class="container-fluid">
+
+                <!--display tasks-->
                 <div class="row">
-
-
-                    <div class="col-md-12">
+                    <div class="col-md-10 col-md-offset-1">
+                        <br/>
+                        <br/>
                         <div class="card">
-                            <p class="text-success">Coming soon</p>
+                            <div id="todos"></div>
+                            <script th:src="@{js/to-do.js}"></script>
+
                         </div>
                     </div>
+                </div><!-- /end task table-->
 
-                </div><!-- /end row-->
+                <!--add task-->
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="card">
+
+                                <br/>
+                                <form class="form-group" style="max-width:500px; margin: auto;">
+
+                                    <label for="task"></label>
+                                    <input id="task" class="form-control text-center" placeholder="A New Task"/>
+                                    <br/>
+                                    <div class="text-center">
+                                    <label for="add"></label>
+                                    <button id="add" class="btn btn-info btn-fill btn-wd">Add</button>
+                                    </div>
+
+                                </form>
+                                <br/>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div><!--end add task-->
+
+                <!--display tasks-->
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <br/>
+                        <br/>
+                        <div class="card">
+                            <div id="todos"></div>
+                            <script th:src="@{js/to-do.js}"></script>
+
+                        </div>
+                    </div>
+                </div><!-- /end task table-->
+
+
             </div><!-- /end container-fluid-->
         </div> <!-- /end content-->
 
