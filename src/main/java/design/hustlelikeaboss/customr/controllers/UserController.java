@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * Created by quanjin on 6/20/17.
  */
 @Controller
-@RequestMapping("user")
+@RequestMapping("")
 public class UserController {
 
     @Autowired
@@ -48,22 +48,8 @@ public class UserController {
         return "redirect:/login";
     }
 
-// TODO #1: user login
-    @RequestMapping(value="login", method = RequestMethod.GET)
-    public String login(Model model) {
-        model.addAttribute("title", "Login");
-        model.addAttribute(new User());
-
-        return "user/login";
-    }
-
-
-// TODO #2: user logout
-// user logout
-
-
 // edit user profile
-    @RequestMapping(value="edit-profile/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value="user/edit-profile/{userId}", method = RequestMethod.GET)
     public String login(Model model, @PathVariable("userId") int userId) {
         model.addAttribute("title", "User Profile");
         model.addAttribute("user", userDao.findOne(userId));

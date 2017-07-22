@@ -9,4 +9,25 @@
     min-height:70vh;
     justify-content:center;
     align-items:center;
+    padding: 0 1em 0 1em;
+}
+
+.centered-form {
+    display:block;
+    width:100%;
+    min-height:70vh;
+    justify-content:center;
+    align-items:center;
+    padding: 15vh 5em 0 5em;
+}
+
+.features {
+    margin-left: 2em;
+}
+
+.homepage-background {
+    background-image: url("/img/background/homepage-1.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+
 }

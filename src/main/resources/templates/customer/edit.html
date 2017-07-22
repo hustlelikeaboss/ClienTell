@@ -186,6 +186,7 @@
 
                                 <div>
                                     <input type="hidden" name="customerId" th:value="*{id}"/>
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                 </div>
 
                                 <div class="text-center">

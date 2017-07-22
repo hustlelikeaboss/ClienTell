@@ -3,27 +3,40 @@
 <head th:replace="dashboard-fragments :: head"></head>
 <body>
 
-<div class="wrapper">
-    <div th:replace="page-fragments :: sidebar"></div> <!--/ end sidebar nav-->
+<div class="wrapper homepage-background">
 
-    <div class="main-panel">
-
-        <div th:replace="page-fragments :: navbar"></div>
+    <nav th:replace="page-fragments :: nav"></nav>
 
 
         <div class="content">
             <div class="container-fluid">
 
-                <div class="row">
+                <div class="row centered-block">
+                    <div>
+                        <h1 class="text-center">ClienTell</h1>
+                        <h2 class="text-center"><small>A lightweight CRM for creative professionals</small></h2>
 
-                    <p>Coming soon</p>
+                        <p class="features">
+                            <i class="ti-check-box"></i> Account Overview<br/>
+                            <i class="ti-check-box"></i> Get Things Done<br/>
+                            <i class="ti-check-box"></i> Send Emails<br/>
+                            <i class="ti-check-box"></i> Manage Projects<br/>
+                            <i class="ti-check-box"></i> Lead Enrichment<br/>
+                            <i class="ti-check-box"></i> And More!<br/>
+                        </p>
+
+                        <br>
+                        <div class="text-center">
+                            <a th:href="@{/register}" class="btn btn-info btn-fill btn-wd center">SIGN UP</a>
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div><!--/ end container-fluid-->
         </div><!--/ end content-->
         <footer th:replace="page-fragments :: footer"></footer>
-    </div><!--/ end main panel-->
 </div><!--/ end wrapper-->
 
 </body>

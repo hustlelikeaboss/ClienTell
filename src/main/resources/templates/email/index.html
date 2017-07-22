@@ -12,22 +12,88 @@
 
         <div class="content">
             <div class="container-fluid">
+                <div class="row card">
+                        <div class="col-md-10 col-md-offset-1">
+
+                                <div class="header">
+                                    <h4 class="title">Inbox</h4>
+                                    <p class="category">Where big things happen</p>
+                                </div>
+
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-hover">
+                                        <!--<thead>-->
+                                            <!--<th>From</th>-->
+                                            <!--<th>Subject</th>-->
+                                            <!--<th>Excerpt</th>-->
+                                            <!--<th>Last Contact</th>-->
+                                        <!--</thead>-->
+                                        <tbody>
+                                            <tr>
+                                                <td><b>Tisha Landrum</b></td>
+                                                <td><b>Re: Logo Proof v1</b></td>
+                                                <td><b>I LOVE it. Do you think it might be a good idea to...</b></td>
+                                                <td><b>9:20 pm</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Marcelle Calder</td>
+                                                <td>Re: Project Completed!</td>
+                                                <td>I can't thank you enough for all your hard work...</td>
+                                                <td>July 20</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Square</b></td>
+                                                <td><b>Invoice paid!</b></td>
+                                                <td><b>The invoice you sent to Karissa Zimmer has been paid...</b></td>
+                                                <td><b>July 19</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Squarespace</b></td>
+                                                <td><b>Welcome to Squarespace Circle</b></td>
+                                                <td><b>Congrats! You're officially a Squarespace Circle member...</b></td>
+                                                <td><b>July 16</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Karissa Zimmer</td>
+                                                <td>Re: Welcome aboard!</td>
+                                                <td>I can't wait to get started!...</td>
+                                                <td>July 12</td>
+                                            </tr>
+                                            <tr>
+                                                <td>HelloSign</td>
+                                                <td>Contract has been signed by all parties</td>
+                                                <td>This automated email is confirming that your contract has been...</td>
+                                                <td>July 10</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+                        </div>
+
+                            </div><!--/ end row-->
+
                 <div class="row">
-
-
                     <div class="col-md-12">
-                        <div class="card">
-                            <p class="text-success">Coming soon</p>
+
+                        <!--Add Customers button-->
+                        <div class="text-center">
+                            <a th:href="@{/project/add}" class="btn btn-info btn-fill btn-wd">COMPOSE</a>
                         </div>
                     </div>
+                    <div class="clearfix"></div>
+                </div>
 
-                </div><!-- /end row-->
-            </div><!-- /end container-fluid-->
-        </div> <!-- /end content-->
+            </div><!--/ end container-fluid-->
+        </div><!--/ end content-->
 
         <footer th:replace="dashboard-fragments :: footer"></footer>
+    </div><!--/ end main panel-->
+</div><!--/ end wrapper-->
 
-    </div> <!-- /end main-panel-->
-</div> <!-- /end wrapper-->
 </body>
+
 </html>
