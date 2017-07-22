@@ -1,20 +1,60 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Spring Security Example </title>
-</head>
+<head th:replace="page-fragments :: head"></head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
+<div class="wrapper">
+
+    <nav th:replace="page-fragments :: sidebar"></nav>
+
+    <div class="main-panel">
+
+        <div th:replace="page-fragments :: nav"></div>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="row">
+
+                        <!--<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">-->
+                            <div class="centered-block">
+
+
+                            <form th:action="@{/login}" method="post" class="form-group">
+
+                                <label for="email"></label>
+                                <input type="email" id="email" name="email" placeholder="Email" class="form-control" />
+
+                                <label for="password"></label>
+                                <input type="password" id="password" name="password" placeholder="Password" class="form-control" />
+
+                                <br/>
+
+                                <div th:if="${param.error}">
+                                    <p>Invalid username and password.</p><br/>
+                                </div>
+                                <div th:if="${param.logout}">
+                                    <p>You have been logged out.</p><br/>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-info btn-fill btn-wd">Login</button>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer th:replace="page-fragments :: footer"></footer>
+
+    </div>
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> Email: <input type="email" name="email"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+
 </body>
 </html>

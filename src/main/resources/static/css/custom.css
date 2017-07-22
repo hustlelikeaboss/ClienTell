@@ -2,3 +2,11 @@
     border: 0px;
     background: rgba(0, 0, 0, 0);
 }
+
+.centered-block {
+    display:flex;
+    width:100%;
+    min-height:70vh;
+    justify-content:center;
+    align-items:center;
+}
