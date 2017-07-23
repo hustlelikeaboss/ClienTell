@@ -18,7 +18,9 @@
 
                         <form class="form-group" th:object="${user}" method="post" action="/user/register">
 
-                            <h3 class="text-center text-info">Meet Your ClienTell</h3>
+                            <div class="text-center title-graphic">
+                                <img th:src="@{/img/Meet-your-ClienTell.png}" alt="Meet your ClienTell" width="200">
+                            </div>
 
                             <label th:for="*{email}"></label>
                             <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />

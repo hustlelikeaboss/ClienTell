@@ -18,7 +18,7 @@
     min-height:70vh;
     justify-content:center;
     align-items:center;
-    padding: 15vh 5em 0 5em;
+    padding: 10vh 5em 0 5em;
 }
 
 .features {
@@ -29,5 +29,8 @@
     background-image: url("/img/background/homepage-1.jpg");
     background-repeat: no-repeat;
     background-size:cover;
+}
 
+#main-logo {
+    margin-bottom: -3em;
 }
