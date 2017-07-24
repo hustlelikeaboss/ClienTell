@@ -21,6 +21,10 @@
     padding: 10vh 5em 0 5em;
 }
 
+.dashboard-form {
+    padding: 2em 2em 2em 2em;
+}
+
 .features {
     margin-left: 2em;
 }

@@ -1,11 +1,13 @@
 package design.hustlelikeaboss.customr.controllers;
 
+import design.hustlelikeaboss.customr.ProfileEnricher;
 import design.hustlelikeaboss.customr.models.Customer;
 import design.hustlelikeaboss.customr.models.User;
 import design.hustlelikeaboss.customr.models.data.CustomerDao;
 import design.hustlelikeaboss.customr.models.data.ProjectDao;
 import design.hustlelikeaboss.customr.models.data.UserDao;
 import design.hustlelikeaboss.customr.models.data.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 
 /**
  * Created by quanjin on 6/21/17.
@@ -34,22 +38,26 @@ public class CustomerController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProfileEnricher profileEnricher;
 
+//
 // display all existing customers
-    @RequestMapping(value="")
+//
+    @RequestMapping(value = "")
     public String index(Model model) {
 
         User user = userService.retrieveUser();
 
         model.addAttribute("title", "Customers");
-//        model.addAttribute("customers", customerDao.findAll());
         model.addAttribute("customers", user.getCustomers());
 
         return "customer/index";
     }
-
+//
 // add new customers
-    @RequestMapping(value="add", method = RequestMethod.GET)
+//
+    @RequestMapping(value = "add", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute("title", "Add New Customers");
         model.addAttribute(new Customer());
@@ -57,7 +65,7 @@ public class CustomerController {
         return "customer/add";
     }
 
-    @RequestMapping(value="add", method = RequestMethod.POST)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     public String add(Model model, @ModelAttribute @Valid Customer customer, Errors errors) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add New Customers");
@@ -71,17 +79,26 @@ public class CustomerController {
         return "redirect:";
     }
 
+//
 // edit customer profile
-    @RequestMapping(value="edit/{customerId}", method = RequestMethod.GET)
-    public String edit(Model model, @PathVariable("customerId") int customerId) {
+//
+    @RequestMapping(value = "edit/{customerId}", method = RequestMethod.GET)
+    public String edit(Model model, @PathVariable("customerId") int customerId) throws UnsupportedEncodingException, MalformedURLException {
+        Customer customer = customerDao.findOne(customerId);
+
+        if (StringUtils.isEmpty(customer.getFacebook())) {
+            profileEnricher.fetchFacebookPage(customer);
+        }
+        profileEnricher.parseFacebookPage(customer);
+
         model.addAttribute("title", "Customer Profile");
         model.addAttribute("customer", customerDao.findOne(customerId));
-        model.addAttribute("projects",  projectDao.findByCustomerId(customerId));
+        model.addAttribute("projects", projectDao.findByCustomerId(customerId));
 
         return "customer/edit";
     }
 
-    @RequestMapping(value="edit", method = RequestMethod.POST)
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
     public String edit(Model model, @ModelAttribute @Valid Customer customer, Errors errors,
                        @RequestParam("customerId") int customerId) {
 
@@ -98,20 +115,16 @@ public class CustomerController {
         c.setPhoneNumber(customer.getPhoneNumber());
         c.setCompany(customer.getCompany());
         c.setWebsite(customer.getWebsite());
-        c.setStreetAddress(customer.getStreetAddress());
+        c.setFacebook(customer.getFacebook());
+        c.setStreet(customer.getStreet());
         c.setCity(customer.getCity());
         c.setState(customer.getState());
-        c.setZipCode(customer.getZipCode());
+        c.setZip(customer.getZip());
 
         customerDao.save(c);
 
         String message = " ";
 
-        return "redirect:edit/"+ customerId + "?message=" + message;
+        return "redirect:edit/" + customerId + "?message=" + message;
     }
-
-
-
-
-
 }

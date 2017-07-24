@@ -13,49 +13,18 @@
 
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
+
+                <div class="row card">
 
                     <div class="col-md-3"></div>
 
                     <div class="col-md-6">
 
-                        <form class="form-group" th:object="${project}" method="post" action="/project/add">
+                        <form class="form-group dashboard-form" th:object="${project}" method="post" action="/project/add">
 
-<!--                            &lt;!&ndash; using datalist&ndash;&gt;
-                            <label th:for="*{name}"></label>
-                            <input type="text" th:field="*{name}" placeholder="Project Name" class="form-control" />
-                            <span th:errors="*{name}"></span>
-
-                            &lt;!&ndash;The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari&ndash;&gt;
-                            <label for="project-type"></label>
-                            <input type="text" name="project-status" id="project-status"list="project-statuses" placeholder="Project Status" class="form-control"/>
-                            <datalist id="project-statuses">
-                                <option th:each="projectStatus : ${projectStatuses}" th:value="${projectStatus.name}" th:text="${projectStatus.id}"></option>
-                            </datalist>
-
-                            &lt;!&ndash;The datalist tag is not supported in Internet Explorer 9 and earlier versions, or in Safari&ndash;&gt;
-                            <label for="project-type"></label>
-                            <input type="text" name="project-type" id="project-type" list="project-types" placeholder="Project Type" class="form-control"/>
-                            <datalist id="project-types">
-                                <option th:each="projectType : ${projectTypes}" th:text="${projectType.name}" th:value="${projectType.id}"></option>
-                            </datalist>
-
-                            <label th:for="*{customer}"></label>
-                            <select class="form-control" name="customer" placeholder="Customer">
-                                <option th:each="customer : ${customers}"
-                                        th:value="${customer.id}"
-                                        th:text="${customer.fName + ' ' + customer.lName}"></option>
-                            </select>
-
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-
-                            <br/>
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-info btn-fill btn-wd">Add Project</button>
+                            <div class="text-center title-graphic">
+                                <img th:src="@{/img/Meet-your-ClienTell.png}" alt="Meet your ClienTell" width="200">
                             </div>
-                            <div class="clearfix"></div>-->
-
 
                             <!-- standard form -->
 

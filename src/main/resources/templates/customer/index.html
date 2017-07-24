@@ -45,8 +45,8 @@
                                             <td th:text="${customer.phoneNumber}"></td>
 
                                             <td>
-                                                <a th:href="@{ 'http://' + ${customer.website} }">
-                                                    <span th:text="${customer.website}"></span>
+                                                <a th:href="@{${customer.website}}">
+                                                    <span th:text="${customer.website}" target="_blank"></span>
                                                 </a>
                                             </td>
                                             <td><a th:href="@{ '/customer/edit/' + ${customer.id} }">Edit</a></td>

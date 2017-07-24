@@ -12,13 +12,17 @@
 
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row card">
 
                     <div class="col-md-3"></div>
 
                     <div class="col-md-6">
 
-                        <form class="form-group" th:object="${project}" method="post" action="/project/edit">
+                        <form class="form-group dashboard-form" th:object="${project}" method="post" action="/project/edit">
+
+                            <div class="text-center title-graphic">
+                                <img th:src="@{/img/Meet-your-ClienTell.png}" alt="Meet your ClienTell" width="200">
+                            </div>
 
                             <label th:for="*{name}"></label>
                             <input type="text" th:field="*{name}" placeholder="Project Name" class="form-control" />

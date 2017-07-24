@@ -24,16 +24,19 @@ public class Customer {
     @Email
     private String email;
 
-    @Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")
     private String phoneNumber;
 
     private String company;
+
+    private String facebook;
+
     private String website;
-    private String streetAddress;
+
+    private String street;
     private String city;
     private String state;
-    private String Country;
-    private String zipCode;
+    private String zip;
+
 
     // assign customers to user
     @ManyToOne
@@ -122,12 +125,12 @@ public class Customer {
         this.website = website;
     }
 
-    public String getStreetAddress() {
-        return streetAddress;
+    public String getStreet() {
+        return street;
     }
 
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCity() {
@@ -146,20 +149,12 @@ public class Customer {
         this.state = state;
     }
 
-    public String getCountry() {
-        return Country;
+    public String getZip() {
+        return zip;
     }
 
-    public void setCountry(String country) {
-        Country = country;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
     public List<Project> getProjects() {
@@ -176,5 +171,17 @@ public class Customer {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
     }
 }

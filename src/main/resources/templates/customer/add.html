@@ -12,46 +12,55 @@
 
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
 
-                    <div class="col-md-3"></div>
+                <div class="card">
 
-                    <div class="col-md-6">
+                    <div class="row">
 
-                        <form class="form-group" th:object="${customer}" method="post" action="/customer/add">
+                        <div class="col-md-3"></div>
 
-                            <label th:for="*{fName}"></label>
-                            <input type="text" th:field="*{fName}" placeholder="first name" class="form-control" />
-                            <span th:errors="*{fName}"></span>
+                        <div class="col-md-6">
 
-                            <label th:for="*{lName}"></label>
-                            <input type="text" th:field="*{lName}" placeholder="last name" class="form-control" />
-                            <span th:errors="*{lName}"></span>
+                                <form class="form-group dashboard-form" th:object="${customer}" method="post" action="/customer/add">
 
-                            <label th:for="*{email}"></label>
-                            <input type="email" th:field="*{email}" placeholder="email" class="form-control" />
-                            <span th:errors="*{email}"></span>
+                                    <div class="text-center title-graphic">
+                                        <img th:src="@{/img/Meet-your-ClienTell.png}" alt="Meet your ClienTell" width="200">
+                                    </div>
 
-                            <label th:for="*{phoneNumber}"></label>
-                            <input type="tel" th:field="*{phoneNumber}" placeholder="phone number" class="form-control" />
-                            <span th:errors="*{phoneNumber}"></span>
+                                    <label th:for="*{fName}"></label>
+                                    <input type="text" th:field="*{fName}" placeholder="first name" class="form-control" />
+                                    <span th:errors="*{fName}"></span>
 
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <label th:for="*{lName}"></label>
+                                    <input type="text" th:field="*{lName}" placeholder="last name" class="form-control" />
+                                    <span th:errors="*{lName}"></span>
+
+                                    <label th:for="*{email}"></label>
+                                    <input type="email" th:field="*{email}" placeholder="email" class="form-control" />
+                                    <span th:errors="*{email}"></span>
+
+                                    <label th:for="*{company}"></label>
+                                    <input type="tel" th:field="*{company}" placeholder="Company Name" class="form-control" />
+                                    <span th:errors="*{company}"></span>
+
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
 
-                            <br/>
+                                    <br/>
 
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-info btn-fill btn-wd">Add Customer</button>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Add Customer</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </form>
                             </div>
-                            <div class="clearfix"></div>
+                        </div>
 
-                        </form>
-                    </div>
+                        <div class="col-md-3"></div>
 
-                    <div class="col-md-3"></div>
+                    </div><!--/ end row-->
 
-                </div><!--/ end row-->
             </div><!--/ end container-fluid-->
         </div><!--/ end content-->
         <footer th:replace="dashboard-fragments :: footer"></footer>
