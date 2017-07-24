@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
+
 /**
  * Created by quanjin on 7/23/17.
  */
@@ -44,7 +45,6 @@ public class ProfileEnricher {
             // create search query
             String googleSearchQuery = "https://www.google.com/search?q=" + searchTerm;
 
-
             // parse html
             Document doc = null;
             try {
@@ -63,7 +63,7 @@ public class ProfileEnricher {
     }
 
 //
-// helper method #1: fetch info from facebook page
+// helper method #2: fetch info from facebook page
 //
     public void parseFacebookPage(Customer customer) {
 
