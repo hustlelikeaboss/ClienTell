@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -37,10 +34,26 @@ public class UserController {
     }
 
     @RequestMapping(value="register", method = RequestMethod.POST)
-    public String register(Model model, @ModelAttribute @Valid User user, Errors errors) {
+    public String register(Model model, @ModelAttribute @Valid User user, Errors errors,
+                           @RequestParam("verify") String verify) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
             model.addAttribute("user", user);
+            model.addAttribute("errors", errors);
+            return "user/register";
+        }
+
+        if (userService.findUserByEmail(user.getEmail()) != null) {
+            model.addAttribute("title", "Register");
+            model.addAttribute("user", user);
+            model.addAttribute("isDuplicate", true);
+            return "user/register";
+        }
+
+        if ( verify.equals(user.getPassword()) ) {
+            model.addAttribute("title", "Register");
+            model.addAttribute("user", user);
+            model.addAttribute("isWrongPassword", true);
             return "user/register";
         }
 
@@ -49,32 +62,35 @@ public class UserController {
     }
 
 // edit user profile
-    @RequestMapping(value="user/edit-profile/{userId}", method = RequestMethod.GET)
-    public String login(Model model, @PathVariable("userId") int userId) {
-        model.addAttribute("title", "User Profile");
-        model.addAttribute("user", userDao.findOne(userId));
+    @RequestMapping(value="user/edit", method = RequestMethod.GET)
+    public String login(Model model) {
+        User user = userService.retrieveUser();
 
-        return "user/edit-profile";
+        model.addAttribute("title", "User Profile");
+        model.addAttribute("user", user);
+
+        return "user/edit";
     }
-/*
-    @RequestMapping(value="edit-profile", method = RequestMethod.POST)
-    public String login(Model model, @ModelAttribute @Valid User user, Errors errors, @RequestParam int userId) {
+
+    @RequestMapping(value="user/edit", method = RequestMethod.POST)
+    public String edit(Model model, @ModelAttribute @Valid User user, Errors errors, @RequestParam("id") int id) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "User Profile");
-            return "user/edit-profile";
+//            model.addAttribute("errors", errors);
+            return "user/edit";
         }
 
-        User usr = userDao.findOne(userId);
-        usr.setfName(user.getfName());
-        usr.setlName(user.getlName());
+        User usr = userDao.findOne(id);
+        usr.setFirstName(user.getFirstName());
+        usr.setLastName(user.getLastName());
         usr.setPhoneNumber(user.getPhoneNumber());
         usr.setCompany(user.getCompany());
         usr.setWebsite(user.getWebsite());
         userDao.save(usr);
 
         String message = " ";
-        return "redirect:edit-profile/"+ userId + "?message=" + message;
-    }*/
+        return "redirect:/user/edit/" + "?message=" + message;
+    }
 
 }

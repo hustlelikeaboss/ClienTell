@@ -16,7 +16,7 @@
 
                     <div class="centered-form">
 
-                        <form class="form-group" th:object="${user}" method="post" action="/user/register">
+                        <form class="form-group" th:object="${user}" method="post" th:action="@{/register}">
 
                             <div class="text-center title-graphic">
                                 <img th:src="@{/img/Meet-your-ClienTell.png}" alt="Meet your ClienTell" width="200">
@@ -25,10 +25,13 @@
                             <label th:for="*{email}"></label>
                             <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
                             <span th:errors="*{email}"></span>
+                            <span th:if="${isDuplicate}">User with this email address already exists</span>
 
                             <label th:for="*{password}"></label>
                             <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
                             <span th:errors="*{password}"></span>
+                            <span th:if="${isWrongPassword}">Passwords don't match.</span>
+
 
                             <label for="verify"></label>
                             <input type="password" id="verify" name="verify" placeholder="Verify Password" class="form-control" />
