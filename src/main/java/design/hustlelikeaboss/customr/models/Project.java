@@ -4,10 +4,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Date;
 
 /**
  * Created by quanjin on 6/20/17.
  */
+
+// mapping query results to class ProjectStats
+@SqlResultSetMapping(
+        name = "ProjectStatsMapping",
+        classes = @ConstructorResult(
+                targetClass = ProjectStats.class,
+                columns = {
+                        @ColumnResult(name="projectStatusId"),
+                        @ColumnResult(name="projectStatusPercentage", type=Float.class)
+                }
+        )
+)
 @Entity
 public class Project {
 
@@ -29,6 +43,8 @@ public class Project {
     @JoinColumn(name="customer_id")
     private Customer customer;
 
+    private Date lastUpdated;
+
     // constructors
     public Project(String name, ProjectType projectType, ProjectStatus projectStatus, Customer customer) {
         this.name = name;
@@ -39,7 +55,6 @@ public class Project {
 
     public Project() {
     }
-
 
     // getters & setters
     public int getId() {
@@ -78,4 +93,15 @@ public class Project {
         this.customer = customer;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }

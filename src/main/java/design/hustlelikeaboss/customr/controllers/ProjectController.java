@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -71,10 +72,7 @@ public class ProjectController {
             return "project/add";
         }
 
-        //    projectTypeDao.save(project.getProjectType());
-        //    projectStatusDao.save(project.getProjectStatus());
-        //    customerDao.save(project.getCustomer());
-
+        project.setLastUpdated(new Date());
         projectDao.save(project);
 
         return "redirect:";
@@ -111,6 +109,7 @@ public class ProjectController {
         p.setProjectStatus(project.getProjectStatus());
         p.setProjectType(project.getProjectType());
         p.setCustomer(project.getCustomer());
+        p.setLastUpdated(new Date());
         projectDao.save(p);
 
         return "redirect:";
