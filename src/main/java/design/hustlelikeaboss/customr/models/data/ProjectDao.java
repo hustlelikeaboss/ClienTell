@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -21,8 +22,7 @@ public interface ProjectDao extends CrudRepository<Project, Integer>{
     @Query("from Project p where p.customer.user.id = ?1")
     List<Project> findByUserId(int id);
 
-////  fetch a list of current projects by month
-//    @Query("select count(p) from Project p where p.lastUpdated > ?1 and p.projectStatus = ?2")
-//    int fetchCurrentProjectsWithStatus(LocalDate startOfMonth, ProjectStatus status);
+    @Query("select sum(p.sales) from Project p where p.customer.user.id = ?1 and p.created >= ?2")
+    Float fetchYearlyRevenue(int userId, LocalDate startOfYear);
 
 }

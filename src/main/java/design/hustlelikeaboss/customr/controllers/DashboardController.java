@@ -81,11 +81,18 @@ public class DashboardController {
 
         List<List> customerSeries = getCustomerStats(userId);
 
+        // get yearly revenue up until today
+        LocalDate currentDate = LocalDate.now();
+        LocalDate startOfYear = LocalDate.of(currentDate.getYear(), 01, 01);
+        Float yearlyRevenue = projectDao.fetchYearlyRevenue(userId, startOfYear);
 
 
         ////////////////////////////////////////////////////////////////////////////////////////
 
         model.addAttribute("title", "Dashboard");
+
+        model.addAttribute("yearlyRevenue", Math.round(yearlyRevenue));
+
         model.addAttribute("projectStatusSeries", projectStats.get(0));
         model.addAttribute("projectStatusLabels", projectStats.get(1));
         model.addAttribute("salesSeries", salesSeries);
