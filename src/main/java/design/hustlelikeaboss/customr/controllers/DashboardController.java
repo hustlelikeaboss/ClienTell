@@ -1,12 +1,11 @@
 package design.hustlelikeaboss.customr.controllers;
 
+import design.hustlelikeaboss.customr.models.CustomerStatus;
 import design.hustlelikeaboss.customr.models.ProjectStatus;
 import design.hustlelikeaboss.customr.models.ProjectType;
 import design.hustlelikeaboss.customr.models.StatsMapping;
-import design.hustlelikeaboss.customr.models.data.ProjectDao;
-import design.hustlelikeaboss.customr.models.data.ProjectStatusDao;
-import design.hustlelikeaboss.customr.models.data.ProjectTypeDao;
-import design.hustlelikeaboss.customr.models.data.UserService;
+import design.hustlelikeaboss.customr.models.data.*;
+import design.hustlelikeaboss.customr.models.stats.CustomerStats;
 import design.hustlelikeaboss.customr.models.stats.ProjectStats;
 import design.hustlelikeaboss.customr.models.stats.SalesStats;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,9 @@ public class DashboardController {
     private ProjectTypeDao projectTypeDao;
 
     @Autowired
+    private CustomerStatusDao customerStatusDao;
+
+    @Autowired
     UserService userService;
 
     @Autowired
@@ -53,6 +55,7 @@ public class DashboardController {
         // get projectStatusSeries & projectStatusLabels in a list
         List<List> projectStats = getProjectStats(userId);
 
+
         // TODO #2: display sales stats by month & project type
         // 1. add sales & updated fields to the Project class
         // 2. update project form
@@ -66,13 +69,17 @@ public class DashboardController {
         List<List> salesSeries = getSalesStats(userId);
 
 
-
-
         // TODO #3: display customer stats by month & status
         // 1. add status & updated fields to the Customer class
         // 2. automatically update customer to lead when first added; update edit form
         // 3. write query
         // 4. query result mapping
+
+        // run the query for each month --> a list of CustomerStats for each customer status
+        // for each month, add a CustomerStats to its respective list (customer status) for the year
+        // after each list of customer status stats is completed, add it to the salesSeries master list
+
+        List<List> customerSeries = getCustomerStats(userId);
 
 
 
@@ -82,9 +89,14 @@ public class DashboardController {
         model.addAttribute("projectStatusSeries", projectStats.get(0));
         model.addAttribute("projectStatusLabels", projectStats.get(1));
         model.addAttribute("salesSeries", salesSeries);
+        model.addAttribute("customerSeries", customerSeries);
 
         return "dashboard";
     }
+
+
+
+
 ///////////////////////////////////////////////////////////////////
 // get stats by project status
 ///////////////////////////////////////////////////////////////////
@@ -119,15 +131,12 @@ public class DashboardController {
 // helper method: get percentage by project status
 //
     private int getPercentageByStatus(ProjectStatus status, List<ProjectStats> statsList) {
-
         int roundedPercentage = 0;
-
         for (ProjectStats s : statsList) {
             if (status.getId() == s.getProjectStatusId()) {
                 roundedPercentage = Math.round(s.getProjectStatusPercentage());
             }
         }
-
         return roundedPercentage;
     }
 
@@ -190,6 +199,85 @@ public class DashboardController {
         }
 
         return monthlySalesStatsByProjectType;
+    }
+
+
+///////////////////////////////////////////////////////////////////
+// get customer stats
+///////////////////////////////////////////////////////////////////
+//
+// process query results:
+//
+    public List<List> getCustomerStats(int userId) {
+
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear();
+        int months = currentDate.getMonthValue();
+
+        // master list A: list of lists of monthly customer stats by month
+        List<List> yearlyCustomerStats = new ArrayList<>();
+
+        // master list B: list of lists of monthly customer stats by customer stats
+        List<List> customerSeries = new ArrayList<>();
+
+        // count number of customer statuses
+        int numberOfCustomerStatus = 0;
+        for (CustomerStatus p : customerStatusDao.findAll()) {numberOfCustomerStatus += 1;}
+
+        for (int m = 1; m <= months; m++) {
+            LocalDate startOfMonth = LocalDate.of(year, m, 1);
+            LocalDate startOfNextMonth = LocalDate.of(year, m + 1, 1);
+
+            List<CustomerStats> monthlyCustomerStats = statsMapping.getCustomerStatsByUserAndMonth(userId, startOfMonth, startOfNextMonth);
+
+            // check if the stats for a customerStatusId is missing (i.e.: no query result)
+            for (int i = 1; i <= numberOfCustomerStatus; i++) {
+                if ( ! containsCustomerStatus(i, monthlyCustomerStats) ) {
+                    monthlyCustomerStats.add(i-1, new CustomerStats(i, 0));
+                }
+            }
+            yearlyCustomerStats.add(monthlyCustomerStats);
+        }
+
+        // convert A into B:
+        for (int customerStatus = 0; customerStatus < numberOfCustomerStatus; customerStatus++) {
+
+            List<Integer> monthlyCustomerStatsByCustomerStatus = getMonthlyCustomerStatsByCustomerStatus(customerStatus, months, yearlyCustomerStats);
+            customerSeries.add(monthlyCustomerStatsByCustomerStatus);
+        }
+
+        return customerSeries;
+    }
+
+//
+// helper method #1: get monthly customer stats by customer status
+//
+    public List<Integer> getMonthlyCustomerStatsByCustomerStatus (int customerStatus, int months, List<List> yearlyCustomerStats) {
+        List<Integer> monthlyCustomerStatsByCustomerStatus = new ArrayList<>();
+
+        for (int month = 0; month < months; month++) {
+            List<CustomerStats> customerStatsByMonth = yearlyCustomerStats.get(month);
+
+            if (! customerStatsByMonth.isEmpty() ) {
+                monthlyCustomerStatsByCustomerStatus.add( customerStatsByMonth.get(customerStatus).getCustomerCounts() );
+            } else {
+                monthlyCustomerStatsByCustomerStatus.add(0);
+            }
+        }
+
+        return monthlyCustomerStatsByCustomerStatus;
+    }
+
+//
+// helper method #2: check if a CustomerStats with a specific customerStatusId exists
+//
+    public Boolean containsCustomerStatus(int customerStatusId, List<CustomerStats> monthlyCustomerStats) {
+        for (CustomerStats c : monthlyCustomerStats) {
+            if (c.getCustomerStatusId().equals(customerStatusId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

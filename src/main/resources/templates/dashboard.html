@@ -203,8 +203,8 @@
                             <div id="chartCustomers" class="ct-chart"></div>
                             <div class="footer">
                                 <div class="chart-legend">
-                                    <i class="fa fa-circle text-info"></i> Converted
-                                    <i class="fa fa-circle text-danger"></i> Negotiating
+                                    <i class="fa fa-circle text-info"></i> Lead
+                                    <i class="fa fa-circle text-danger"></i> Converted
                                     <i class="fa fa-circle text-warning"></i> Lost
                                 </div>
                                 <hr>
@@ -279,24 +279,20 @@
     <!-------------------------------------------------------------------->
         var dataSales = {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          series: [
-             [87, 85, 90, 62, 94, 26, 98, 95],
-            [67, 52, 93, 40, 87, 35, 35, 42],
-            [23, 13, 67, 08, 90, 39, 07, 10]
-          ]
+      series: [[${customerSeries}]]
         };
 
         var optionsSales = {
           lineSmooth: false,
           low: 0,
-          high: 100,
-          showArea: true,
+          high: 30,
+          showArea: false,
           height: "245px",
           axisX: {
             showGrid: false,
           },
           lineSmooth: Chartist.Interpolation.simple({
-            divisor: 3
+            divisor: 3,
           }),
           showLine: true,
           showPoint: false,

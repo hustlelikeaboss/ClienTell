@@ -123,12 +123,12 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label th:for="*{status}">Status</label>
-                                            <select name="status" id="status" class="form-control border-input">
-                                                <option th:each="status : ${T(design.hustlelikeaboss.customr.models.CustomerStatus).values()}"
-                                                        th:value="${status}"
-                                                        th:text="${status}"
-                                                        th:selected="${customer.status} == ${status} ? true : false"></option>
+                                            <label th:for="*{customerStatus}">Status</label>
+                                            <select name="customerStatus" id="customerStatus" class="form-control border-input">
+                                                <option th:each="status : ${customerStatuses}"
+                                                        th:value="${status.id}"
+                                                        th:text="${status.name}"
+                                                        th:selected="${customer.customerStatus} == ${status} ? true : false"></option>
                                             </select>
                                         </div>
                                     </div>

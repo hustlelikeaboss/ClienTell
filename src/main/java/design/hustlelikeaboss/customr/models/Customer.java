@@ -37,8 +37,6 @@ public class Customer {
     private String state;
     private String zip;
 
-    private CustomerStatus status;
-
     private LocalDate created;
     private LocalDate updated;
 
@@ -46,6 +44,10 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name="customer_status_id")
+    private CustomerStatus customerStatus;
 
     @OneToMany
     private List<Project> projects = new ArrayList<>();
@@ -190,12 +192,12 @@ public class Customer {
         this.facebook = facebook;
     }
 
-    public CustomerStatus getStatus() {
-        return status;
+    public CustomerStatus getCustomerStatus() {
+        return customerStatus;
     }
 
-    public void setStatus(CustomerStatus status) {
-        this.status = status;
+    public void setCustomerStatus(CustomerStatus customerStatus) {
+        this.customerStatus = customerStatus;
     }
 
     public LocalDate getCreated() {

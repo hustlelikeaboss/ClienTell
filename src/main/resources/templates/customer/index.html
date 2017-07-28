@@ -42,7 +42,7 @@
                                             </td>
 
                                             <td th:text="${customer.phoneNumber}"></td>
-                                            <td th:text="${customer.status}"></td>
+                                            <td th:if="${customer.customerStatus != null}" th:text="${customer.customerStatus.name}"></td>
 
                                         </tr>
                                     </tbody>

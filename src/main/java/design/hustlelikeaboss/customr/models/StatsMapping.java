@@ -1,5 +1,6 @@
 package design.hustlelikeaboss.customr.models;
 
+import design.hustlelikeaboss.customr.models.stats.CustomerStats;
 import design.hustlelikeaboss.customr.models.stats.ProjectStats;
 import design.hustlelikeaboss.customr.models.stats.SalesStats;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,21 @@ public class StatsMapping {
         List<SalesStats> monthlySalesStats = q.getResultList();
 
         return monthlySalesStats;
+    }
+
+    public List<CustomerStats> getCustomerStatsByUserAndMonth(int userId, LocalDate startOfMonth, LocalDate startOfNextMonth) {
+        Query q = entityManager.createNativeQuery("SELECT customer_status.id as customerStatusId,\n" +
+                "COUNT(customer.id) as customerCounts\n" +
+                "FROM customer_status\n" +
+                "LEFT JOIN customer on customer.customer_status_id = customer_status.id\n" +
+                "WHERE customer.user_id = ?1 AND customer.updated >= ?2 AND customer.updated < ?3 \n" +
+                "GROUP by customer_status.id", "CustomerStatsMapping");
+        q.setParameter(1, userId);
+        q.setParameter(2, startOfMonth);
+        q.setParameter(3, startOfNextMonth);
+        List<CustomerStats> monthlyCustomerStats = q.getResultList();
+
+        return monthlyCustomerStats;
     }
 
 

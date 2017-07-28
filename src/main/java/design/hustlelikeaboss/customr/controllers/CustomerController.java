@@ -2,14 +2,9 @@ package design.hustlelikeaboss.customr.controllers;
 
 import design.hustlelikeaboss.customr.ProfileEnricher;
 import design.hustlelikeaboss.customr.models.Customer;
-import design.hustlelikeaboss.customr.models.CustomerStatus;
 import design.hustlelikeaboss.customr.models.User;
-import design.hustlelikeaboss.customr.models.data.CustomerDao;
-import design.hustlelikeaboss.customr.models.data.ProjectDao;
-import design.hustlelikeaboss.customr.models.data.UserDao;
-import design.hustlelikeaboss.customr.models.data.UserService;
+import design.hustlelikeaboss.customr.models.data.*;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +32,9 @@ public class CustomerController {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private CustomerStatusDao customerStatusDao;
 
     @Autowired
     private UserService userService;
@@ -81,9 +79,10 @@ public class CustomerController {
         customer.setUser(user);
         customer.setCreated(currentDate);
         customer.setUpdated(currentDate);
-        customer.setStatus(CustomerStatus.LEAD);
+        customer.setCustomerStatus(customerStatusDao.findOne(1));
         customerDao.save(customer);
-        return "redirect:";
+
+        return "redirect:edit/" + customer.getId();
     }
 
 //
@@ -101,15 +100,14 @@ public class CustomerController {
         model.addAttribute("title", "Customer Profile");
         model.addAttribute("customer", customerDao.findOne(customerId));
         model.addAttribute("projects", projectDao.findByCustomerId(customerId));
-//        model.addAttribute("statuses", CustomerStatus.values());
+        model.addAttribute("customerStatuses", customerStatusDao.findAll());
 
         return "customer/edit";
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     public String edit(Model model, @ModelAttribute @Valid Customer customer, Errors errors,
-                       @RequestParam("customerId") int customerId,
-                       @RequestParam("status") CustomerStatus status) {
+                       @RequestParam("customerId") int customerId){
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Customer Profile");
@@ -131,8 +129,12 @@ public class CustomerController {
         c.setState(customer.getState());
         c.setZip(customer.getZip());
 
-        if ( ! c.getStatus().equals(status) ){
-            c.setStatus(status);
+
+        if (c.getCustomerStatus() == null ) {
+            c.setCustomerStatus(customer.getCustomerStatus());
+            c.setUpdated(currentDate);
+        } else if ( ! c.getCustomerStatus().equals(customer.getCustomerStatus())){
+            c.setCustomerStatus(customer.getCustomerStatus());
             c.setUpdated(currentDate);
         }
 

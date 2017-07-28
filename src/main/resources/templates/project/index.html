@@ -27,8 +27,6 @@
                                     <th>Project Status</th>
                                     <th>Customer</th>
                                     <th>Sales($)</th>
-                                    <th>Created</th>
-                                    <th>Last Updated</th>
 
                                     </thead>
                                     <tbody>
@@ -42,8 +40,6 @@
                                         <td th:text="${project.projectStatus.name}"></td>
                                         <td th:text="${project.customer.fName + ' ' + project.customer.lName}"></td>
                                         <td th:text="${project.sales}"></td>
-                                        <td th:text="${project.created}"></td>
-                                        <td th:text="${project.updated}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
