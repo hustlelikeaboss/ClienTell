@@ -19,15 +19,18 @@ public class StatsMapping {
     @Autowired
     private EntityManager entityManager;
 
-    public List<ProjectStats> getPercentageByUserAndMonth(int userId) {
-        Query q = entityManager.createNativeQuery("SELECT project_status.id as projectStatusId,\n" +
-                "(count(project.id) / (select count(*) from project join customer on customer_id = customer.id\n" +
-                "WHERE customer.user_id=?1)) * 100 as projectStatusPercentage from project_status \n" +
+    public List<ProjectStats> getPercentageByUserAndMonth(int userId, LocalDate startOfMonth, LocalDate startOfNextMonth) {
+        Query q = entityManager.createNativeQuery("SELECT project_status.id as projectStatusId, \n" +
+                "(count(project.id) / (select count(*) from project join customer on customer_id = customer.id " +
+                "WHERE customer.user_id = ?1 AND project.updated >= ?2 AND project.updated < ?3)) * 100 " +
+                "as projectStatusPercentage \n" +
+                "from project_status \n" +
                 "left join project on project_status_id = project_status.id\n" +
-                "join customer on customer_id = customer.id\n" +
-                "WHERE customer.user_id=?1\n" +
+                "join customer on customer_id = customer.id WHERE customer.user_id = ?1\n" +
                 "group by project_status.id", "ProjectStatsMapping");
         q.setParameter(1, userId);
+        q.setParameter(2, startOfMonth);
+        q.setParameter(3, startOfNextMonth);
         List<ProjectStats> projectStatsInPercentage = q.getResultList();
 
         return projectStatsInPercentage;

@@ -45,24 +45,13 @@ public class DashboardController {
     @RequestMapping(value="")
     public String dashboard(Model model) {
 
-//        LocalDate currentDate = LocalDate.now();
-//        LocalDate startOfMonth = LocalDate.of(currentDate.getYear(), currentDate.getMonth(), 0);
+
 
         int userId = userService.retrieveUser().getId();
 
         // TODO #1: display project stats by month & status
-        List<ProjectStats> projectStatsInPercentage = statsMapping.getPercentageByUserAndMonth(userId);
-
-        List<Integer> projectStatusSeries = new ArrayList<>();
-        List<String> projectStatusLabels = new ArrayList<>();
-        Iterable<ProjectStatus> projectStatuses = projectStatusDao.findAll();
-
-        for (ProjectStatus p : projectStatuses) {
-            int roundedPercentage = getPercentageByStatus(p, projectStatsInPercentage);
-
-            projectStatusLabels.add(Integer.toString(roundedPercentage) + "%");
-            projectStatusSeries.add(roundedPercentage);
-        }
+        // get projectStatusSeries & projectStatusLabels in a list
+        List<List> projectStats = getProjectStats(userId);
 
         // TODO #2: display sales stats by month & project type
         // 1. add sales & updated fields to the Project class
@@ -90,13 +79,41 @@ public class DashboardController {
         ////////////////////////////////////////////////////////////////////////////////////////
 
         model.addAttribute("title", "Dashboard");
-        model.addAttribute("projectStatusSeries", projectStatusSeries);
-        model.addAttribute("projectStatusLabels", projectStatusLabels);
+        model.addAttribute("projectStatusSeries", projectStats.get(0));
+        model.addAttribute("projectStatusLabels", projectStats.get(1));
         model.addAttribute("salesSeries", salesSeries);
 
         return "dashboard";
     }
+///////////////////////////////////////////////////////////////////
+// get stats by project status
+///////////////////////////////////////////////////////////////////
+//
+    public List<List> getProjectStats(int userId) {
+        int year = LocalDate.now().getYear();
+        int month = LocalDate.now().getMonthValue();
+        LocalDate startOfMonth = LocalDate.of(year, month, 1);
+        LocalDate startOfNextMonth = LocalDate.of(year, month + 1, 1);
 
+        List<ProjectStats> projectStatsInPercentage = statsMapping.getPercentageByUserAndMonth(userId, startOfMonth, startOfNextMonth);
+
+        List<Integer> projectStatusSeries = new ArrayList<>();
+        List<String> projectStatusLabels = new ArrayList<>();
+        Iterable<ProjectStatus> projectStatuses = projectStatusDao.findAll();
+
+        for (ProjectStatus p : projectStatuses) {
+            int roundedPercentage = getPercentageByStatus(p, projectStatsInPercentage);
+
+            projectStatusLabels.add(Integer.toString(roundedPercentage) + "%");
+            projectStatusSeries.add(roundedPercentage);
+        }
+
+        List<List> projectStats = new ArrayList<>();
+        projectStats.add(projectStatusSeries);
+        projectStats.add(projectStatusLabels);
+
+        return projectStats;
+    }
 
 //
 // helper method: get percentage by project status
