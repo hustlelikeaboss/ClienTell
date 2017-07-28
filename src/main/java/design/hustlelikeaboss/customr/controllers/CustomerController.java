@@ -2,12 +2,14 @@ package design.hustlelikeaboss.customr.controllers;
 
 import design.hustlelikeaboss.customr.ProfileEnricher;
 import design.hustlelikeaboss.customr.models.Customer;
+import design.hustlelikeaboss.customr.models.CustomerStatus;
 import design.hustlelikeaboss.customr.models.User;
 import design.hustlelikeaboss.customr.models.data.CustomerDao;
 import design.hustlelikeaboss.customr.models.data.ProjectDao;
 import design.hustlelikeaboss.customr.models.data.UserDao;
 import design.hustlelikeaboss.customr.models.data.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.time.LocalDate;
 
 /**
  * Created by quanjin on 6/21/17.
@@ -73,8 +76,12 @@ public class CustomerController {
         }
 
         User user = userService.retrieveUser();
+        LocalDate currentDate = LocalDate.now();
 
         customer.setUser(user);
+        customer.setCreated(currentDate);
+        customer.setUpdated(currentDate);
+        customer.setStatus(CustomerStatus.LEAD);
         customerDao.save(customer);
         return "redirect:";
     }
@@ -94,13 +101,15 @@ public class CustomerController {
         model.addAttribute("title", "Customer Profile");
         model.addAttribute("customer", customerDao.findOne(customerId));
         model.addAttribute("projects", projectDao.findByCustomerId(customerId));
+//        model.addAttribute("statuses", CustomerStatus.values());
 
         return "customer/edit";
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     public String edit(Model model, @ModelAttribute @Valid Customer customer, Errors errors,
-                       @RequestParam("customerId") int customerId) {
+                       @RequestParam("customerId") int customerId,
+                       @RequestParam("status") CustomerStatus status) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Customer Profile");
@@ -108,6 +117,7 @@ public class CustomerController {
         }
 
         Customer c = customerDao.findOne(customerId);
+        LocalDate currentDate = LocalDate.now();
 
         c.setfName(customer.getfName());
         c.setlName(customer.getlName());
@@ -120,6 +130,11 @@ public class CustomerController {
         c.setCity(customer.getCity());
         c.setState(customer.getState());
         c.setZip(customer.getZip());
+
+        if ( ! c.getStatus().equals(status) ){
+            c.setStatus(status);
+            c.setUpdated(currentDate);
+        }
 
         customerDao.save(c);
 

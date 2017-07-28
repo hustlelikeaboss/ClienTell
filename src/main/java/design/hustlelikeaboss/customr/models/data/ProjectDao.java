@@ -1,14 +1,11 @@
 package design.hustlelikeaboss.customr.models.data;
 
 import design.hustlelikeaboss.customr.models.Project;
-import design.hustlelikeaboss.customr.models.ProjectStats;
-import design.hustlelikeaboss.customr.models.ProjectStatus;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.List;
 
 /**

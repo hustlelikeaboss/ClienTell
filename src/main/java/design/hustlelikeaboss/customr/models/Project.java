@@ -1,18 +1,26 @@
 package design.hustlelikeaboss.customr.models;
+import design.hustlelikeaboss.customr.models.stats.ProjectStats;
+import design.hustlelikeaboss.customr.models.stats.SalesStats;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
-import java.util.ArrayList;
-import java.util.Currency;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * Created by quanjin on 6/20/17.
  */
 
-// mapping query results to class ProjectStats
-@SqlResultSetMapping(
+@SqlResultSetMappings({
+    // mapping query results to class ProjectStats
+    @SqlResultSetMapping(
         name = "ProjectStatsMapping",
         classes = @ConstructorResult(
                 targetClass = ProjectStats.class,
@@ -21,7 +29,19 @@ import java.util.Date;
                         @ColumnResult(name="projectStatusPercentage", type=Float.class)
                 }
         )
-)
+    ),
+    // mapping query results to class SalesStats
+    @SqlResultSetMapping(
+        name = "SalesMapping",
+        classes = @ConstructorResult(
+                targetClass = SalesStats.class,
+                columns = {
+                        @ColumnResult(name="projectTypeId"),
+                        @ColumnResult(name="salesTotal", type=Float.class)
+                }
+        )
+    )
+})
 @Entity
 public class Project {
 
@@ -43,7 +63,9 @@ public class Project {
     @JoinColumn(name="customer_id")
     private Customer customer;
 
-    private Date lastUpdated;
+    private Float sales;
+
+    private LocalDate created, updated;
 
     // constructors
     public Project(String name, ProjectType projectType, ProjectStatus projectStatus, Customer customer) {
@@ -97,11 +119,27 @@ public class Project {
         this.id = id;
     }
 
-    public Date getLastUpdated() {
-        return lastUpdated;
+    public LocalDate getUpdated() {
+        return updated;
     }
 
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setUpdated(LocalDate updated) {
+        this.updated = updated;
+    }
+
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
+    public Float getSales() {
+        return sales;
+    }
+
+    public void setSales(Float sales) {
+        this.sales = sales;
     }
 }

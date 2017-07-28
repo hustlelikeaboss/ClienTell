@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +73,10 @@ public class ProjectController {
             return "project/add";
         }
 
-        project.setLastUpdated(new Date());
+        LocalDate currentDate = LocalDate.now();
+
+        project.setCreated(currentDate);
+        project.setUpdated(currentDate);
         projectDao.save(project);
 
         return "redirect:";
@@ -106,10 +110,15 @@ public class ProjectController {
 
         Project p = projectDao.findOne(projectId);
         p.setName(project.getName());
-        p.setProjectStatus(project.getProjectStatus());
+
+        if (!project.getProjectStatus().equals(p.getProjectStatus())) {
+            p.setProjectStatus(project.getProjectStatus());
+            p.setUpdated(LocalDate.now());
+        }
         p.setProjectType(project.getProjectType());
         p.setCustomer(project.getCustomer());
-        p.setLastUpdated(new Date());
+        p.setSales(project.getSales());
+
         projectDao.save(p);
 
         return "redirect:";

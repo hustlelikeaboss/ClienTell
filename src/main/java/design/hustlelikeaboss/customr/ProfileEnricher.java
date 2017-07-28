@@ -87,10 +87,14 @@ public class ProfileEnricher {
             if (page != null) {
 
                 customer.setWebsite(page.getWebsite());
-                customer.setStreet(page.getLocation().getStreet());
-                customer.setCity(page.getLocation().getCity());
-                customer.setState(page.getLocation().getState());
-                customer.setZip(page.getLocation().getZip());
+
+                if (page.getLocation() != null) {
+                    customer.setStreet(page.getLocation().getStreet());
+                    customer.setCity(page.getLocation().getCity());
+                    customer.setState(page.getLocation().getState());
+                    customer.setZip(page.getLocation().getZip());
+                }
+
                 customer.setPhoneNumber(page.getPhone());
 
                 customerDao.save(customer);

@@ -1,5 +1,7 @@
 package design.hustlelikeaboss.customr.models;
 
+import design.hustlelikeaboss.customr.models.stats.ProjectStats;
+import design.hustlelikeaboss.customr.models.stats.SalesStats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,13 +14,12 @@ import java.util.List;
  * Created by quanjin on 7/26/17.
  */
 @Component
-public class UseProjectStatsMapping{
+public class StatsMapping {
 
     @Autowired
     private EntityManager entityManager;
 
-    public List<ProjectStats> getPercentageByUserStartOfMonth (int userId) {
-
+    public List<ProjectStats> getPercentageByUserAndMonth(int userId) {
         Query q = entityManager.createNativeQuery("SELECT project_status.id as projectStatusId,\n" +
                 "(count(project.id) / (select count(*) from project join customer on customer_id = customer.id\n" +
                 "WHERE customer.user_id=?1)) * 100 as projectStatusPercentage from project_status \n" +
@@ -31,6 +32,24 @@ public class UseProjectStatsMapping{
 
         return projectStatsInPercentage;
     }
+
+    public List<SalesStats> getSalesStatsByUserAndMonth(int userId, LocalDate startOfMonth, LocalDate startOfNextMonth) {
+        Query q = entityManager.createNativeQuery("SELECT project_type.id as projectTypeId, \n" +
+                "SUM(project.sales) as salesTotal \n" +
+                "from project_type \n" +
+                "left join project on project_type_id = project_type.id\n" +
+                "join customer on customer_id = customer.id \n" +
+                "WHERE project.created >= ?1 AND project.created < ?2 AND customer.user_id = ?3\n" +
+                "group by project_type.id", "SalesMapping");
+        q.setParameter(1, startOfMonth);
+        q.setParameter(2, startOfNextMonth);
+        q.setParameter(3, userId);
+        List<SalesStats> monthlySalesStats = q.getResultList();
+
+        return monthlySalesStats;
+    }
+
+
 
 
 }

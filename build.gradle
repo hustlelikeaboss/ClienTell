@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.4.RELEASE'
+		springBootVersion = '1.5.6.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -30,21 +30,21 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
-    compile ('net.sourceforge.nekohtml:nekohtml:1.9.21')
-
 	compile 'org.springframework.security:spring-security-web:4.2.3.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-security")
     testCompile("org.springframework.security:spring-security-test")
 
-	// jsoup HTML parser library @ https://jsoup.org/
+    // https://mvnrepository.com/artifact/net.sourceforge.nekohtml/nekohtml
+    compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.15'
+
+    // jsoup HTML parser library @ https://jsoup.org/
 	compile 'org.jsoup:jsoup:1.10.3'
     
     // RestFB: a Facebook Graph API client
     compile group: 'com.restfb', name: 'restfb', version: '1.43.0'
 
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    // utility classes: https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-
 }
 
 bootRun {

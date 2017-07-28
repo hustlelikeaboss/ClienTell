@@ -3,7 +3,7 @@ package design.hustlelikeaboss.customr.models;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +37,10 @@ public class Customer {
     private String state;
     private String zip;
 
+    private CustomerStatus status;
+
+    private LocalDate created;
+    private LocalDate updated;
 
     // assign customers to user
     @ManyToOne
@@ -72,7 +76,8 @@ public class Customer {
     public Customer() {
     }
 
-    //  getters & setters
+//  getters & setters
+
     public int getId() {
         return id;
     }
@@ -183,5 +188,29 @@ public class Customer {
 
     public void setFacebook(String facebook) {
         this.facebook = facebook;
+    }
+
+    public CustomerStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CustomerStatus status) {
+        this.status = status;
+    }
+
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
+    public LocalDate getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDate updated) {
+        this.updated = updated;
     }
 }

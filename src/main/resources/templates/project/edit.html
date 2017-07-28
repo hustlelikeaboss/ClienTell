@@ -52,6 +52,9 @@
                                         th:selected="${project.customer.fName + project.customer.lName} == ${customer.fName + customer.lName} ? true : false"></option>
                             </select>
 
+                            <label th:for="*{sales}"></label>
+                            <input type="text" th:field="*{sales}" placeholder="Sales($)" class="form-control" />
+
                             <input type="hidden" name="projectId" th:value="${project.id}" />
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 

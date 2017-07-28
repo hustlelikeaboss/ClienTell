@@ -16,7 +16,7 @@
                     <div class="col-md-10 col-md-offset-1">
                             <div class="header">
                                 <h4 class="title">Existing Customers</h4>
-                                <p class="category">Click on each customer to view and update full profile.</p>
+                                <p class="category">Click on a customer's name to view and update their profile.</p>
                             </div>
 
                             <div th:if="${customers} and ${customers.size()}" class="content table-responsive table-full-width">
@@ -25,7 +25,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone Number</th>
-                                        <th>Website</th>
+                                        <th>Status</th>
                                     </thead>
                                         <tbody>
                                         <tr th:each="customer : ${customers}">
@@ -41,15 +41,9 @@
                                                 </a>
                                             </td>
 
-
                                             <td th:text="${customer.phoneNumber}"></td>
+                                            <td th:text="${customer.status}"></td>
 
-                                            <td>
-                                                <a th:href="@{${customer.website}}">
-                                                    <span th:text="${customer.website}" target="_blank"></span>
-                                                </a>
-                                            </td>
-                                            <td><a th:href="@{ '/customer/edit/' + ${customer.id} }">Edit</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

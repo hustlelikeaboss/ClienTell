@@ -1,4 +1,4 @@
-package design.hustlelikeaboss.customr.models;
+package design.hustlelikeaboss.customr.models.stats;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

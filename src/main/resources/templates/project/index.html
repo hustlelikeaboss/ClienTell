@@ -26,6 +26,10 @@
                                     <th>Project Type</th>
                                     <th>Project Status</th>
                                     <th>Customer</th>
+                                    <th>Sales($)</th>
+                                    <th>Created</th>
+                                    <th>Last Updated</th>
+
                                     </thead>
                                     <tbody>
                                     <tr th:each="project : ${projects}">
@@ -37,7 +41,9 @@
                                         <td th:text="${project.projectType.name}"></td>
                                         <td th:text="${project.projectStatus.name}"></td>
                                         <td th:text="${project.customer.fName + ' ' + project.customer.lName}"></td>
-                                        <td><a th:href="@{ '/project/edit/' + ${project.id} }">Edit</a></td>
+                                        <td th:text="${project.sales}"></td>
+                                        <td th:text="${project.created}"></td>
+                                        <td th:text="${project.updated}"></td>
                                     </tr>
                                     </tbody>
                                 </table>

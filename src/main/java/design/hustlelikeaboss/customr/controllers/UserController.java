@@ -50,7 +50,7 @@ public class UserController {
             return "user/register";
         }
 
-        if ( verify.equals(user.getPassword()) ) {
+        if ( ! verify.equals(user.getPassword()) ) {
             model.addAttribute("title", "Register");
             model.addAttribute("user", user);
             model.addAttribute("isWrongPassword", true);
