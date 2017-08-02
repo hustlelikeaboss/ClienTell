@@ -1,4 +1,4 @@
-package design.hustlelikeaboss.customr;
+package design.hustlelikeaboss.customr.utils;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;

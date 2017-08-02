@@ -1,6 +1,6 @@
 package design.hustlelikeaboss.customr.controllers;
 
-import design.hustlelikeaboss.customr.ProfileEnricher;
+import design.hustlelikeaboss.customr.utils.ProfileEnricher;
 import design.hustlelikeaboss.customr.models.Customer;
 import design.hustlelikeaboss.customr.models.User;
 import design.hustlelikeaboss.customr.models.data.*;

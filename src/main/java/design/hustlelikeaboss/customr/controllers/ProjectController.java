@@ -2,7 +2,6 @@ package design.hustlelikeaboss.customr.controllers;
 
 import design.hustlelikeaboss.customr.models.Customer;
 import design.hustlelikeaboss.customr.models.Project;
-import design.hustlelikeaboss.customr.models.ProjectType;
 import design.hustlelikeaboss.customr.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +10,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**

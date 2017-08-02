@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -30,8 +31,8 @@ public class StatsMapping {
                 "join customer on customer_id = customer.id WHERE customer.user_id = ?1\n" +
                 "group by project_status.id", "ProjectStatsMapping");
         q.setParameter(1, userId);
-        q.setParameter(2, startOfMonth);
-        q.setParameter(3, startOfNextMonth);
+        q.setParameter(2, startOfMonth.format(DateTimeFormatter.BASIC_ISO_DATE));
+        q.setParameter(3, startOfNextMonth.format(DateTimeFormatter.BASIC_ISO_DATE));
         List<ProjectStats> projectStatsInPercentage = q.getResultList();
 
         return projectStatsInPercentage;
@@ -45,8 +46,8 @@ public class StatsMapping {
                 "join customer on customer_id = customer.id \n" +
                 "WHERE project.created >= ?1 AND project.created < ?2 AND customer.user_id = ?3\n" +
                 "group by project_type.id", "SalesMapping");
-        q.setParameter(1, startOfMonth);
-        q.setParameter(2, startOfNextMonth);
+        q.setParameter(1, startOfMonth.format(DateTimeFormatter.BASIC_ISO_DATE));
+        q.setParameter(2, startOfNextMonth.format(DateTimeFormatter.BASIC_ISO_DATE));
         q.setParameter(3, userId);
         List<SalesStats> monthlySalesStats = q.getResultList();
 
@@ -61,8 +62,8 @@ public class StatsMapping {
                 "WHERE customer.user_id = ?1 AND customer.updated >= ?2 AND customer.updated < ?3 \n" +
                 "GROUP by customer_status.id", "CustomerStatsMapping");
         q.setParameter(1, userId);
-        q.setParameter(2, startOfMonth);
-        q.setParameter(3, startOfNextMonth);
+        q.setParameter(2, startOfMonth.format(DateTimeFormatter.BASIC_ISO_DATE));
+        q.setParameter(3, startOfNextMonth.format(DateTimeFormatter.BASIC_ISO_DATE));
         List<CustomerStats> monthlyCustomerStats = q.getResultList();
 
         return monthlyCustomerStats;

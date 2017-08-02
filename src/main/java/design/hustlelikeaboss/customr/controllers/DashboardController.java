@@ -37,17 +37,15 @@ public class DashboardController {
     private CustomerStatusDao customerStatusDao;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    StatsMapping statsMapping;
+    private StatsMapping statsMapping;
 
     private final static Float ZERO = new Float(0.0);
 
     @RequestMapping(value="")
     public String dashboard(Model model) {
-
-
 
         int userId = userService.retrieveUser().getId();
 
@@ -109,6 +107,7 @@ public class DashboardController {
 ///////////////////////////////////////////////////////////////////
 //
     public List<List> getProjectStats(int userId) {
+
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
         LocalDate startOfMonth = LocalDate.of(year, month, 1);
@@ -140,8 +139,18 @@ public class DashboardController {
     private int getPercentageByStatus(ProjectStatus status, List<ProjectStats> statsList) {
         int roundedPercentage = 0;
         for (ProjectStats s : statsList) {
-            if (status.getId() == s.getProjectStatusId()) {
-                roundedPercentage = Math.round(s.getProjectStatusPercentage());
+
+            int projectStatusId = s.getProjectStatusId();
+
+            if (status.getId() == projectStatusId) {
+
+
+                if (s.getProjectStatusPercentage() != null) {
+                    roundedPercentage = Math.round(s.getProjectStatusPercentage());
+                } else {
+                    roundedPercentage = 0;
+                }
+
             }
         }
         return roundedPercentage;
@@ -286,8 +295,6 @@ public class DashboardController {
         }
         return false;
     }
-
-
 
 
 }

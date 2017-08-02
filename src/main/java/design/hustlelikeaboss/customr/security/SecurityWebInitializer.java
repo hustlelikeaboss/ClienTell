@@ -1,4 +1,4 @@
-package design.hustlelikeaboss.customr;
+package design.hustlelikeaboss.customr.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
